@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light"><meta name="description" content="Zaštićeni integrisani strateški, forenzički i M&A izvještaj IDSS-a i IMH-a, 2022–2032.">
+<link rel="canonical" href="https://mulalicd.github.io/https-github.com-mulalicd-IZVJESTAJ-IMH-IDSS/">
+<title>IDSS + IMH | Zaštićeni Strateški & M&A Izvještaj 2026.</title>
+<style>
+:root{
+  --ink:#101820;--muted:#5a6977;--paper:#f3f6f9;--surface:#ffffff;--line:#dce3ea;
+  --idss-red:#E8262C;--idss-blue:#035EA1;--idss-cyan:#08ABE6;--idss-yellow:#FFCB29;--idss-black:#000000;
+  --imh-lime:#D8E155;--imh-leaf:#AAD26C;--imh-green:#2CB14D;--imh-brown:#9F633F;--imh-pink:#F2557E;
+  --shadow:0 14px 40px rgba(16,24,32,.07);--sidebar:285px
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:86px}
+body{margin:0;background:var(--paper);color:var(--ink);font:14.5px/1.68 "Segoe UI",Inter,system-ui,-apple-system,sans-serif}
+button,input,select{font:inherit}
+
+/* PIN LOCK SCREEN */
+#pinOverlay{
+  position:fixed;inset:0;z-index:9999;
+  background:radial-gradient(circle at 85% 15%,rgba(8,171,230,.22),transparent 35%),radial-gradient(circle at 15% 85%,rgba(44,177,77,.18),transparent 35%),linear-gradient(135deg,#000000 0%,#081e33 55%,#035EA1 100%);
+  display:flex;align-items:center;justify-content:center;padding:18px;
+}
+.pin-card{
+  width:min(410px,100%);background:rgba(255,255,255,.98);color:#101820;
+  border-radius:20px;padding:28px 24px 24px;box-shadow:0 28px 80px rgba(0,0,0,.45);
+  border-top:6px solid var(--idss-yellow);text-align:center;position:relative;overflow:hidden;
+}
+.pin-ribbon{position:absolute;top:0;left:0;right:0;height:5px;display:grid;grid-template-columns:repeat(6,1fr)}
+.pin-logo{display:inline-flex;align-items:center;gap:10px;font-weight:900;font-size:15px;letter-spacing:.04em;margin-bottom:6px}
+.pin-title{margin:4px 0 4px;font-size:20px;font-weight:800;color:#0b253c}
+.pin-sub{margin:0 0 18px;font-size:12.5px;color:#5a6977}
+.pin-dots{display:flex;justify-content:center;gap:10px;margin-bottom:14px;cursor:text}
+.pin-dot{
+  width:42px;height:48px;border-radius:10px;border:2px solid #cbd5e1;background:#f8fafc;
+  display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#035EA1;transition:.15s
+}
+.pin-dot.filled{border-color:#035EA1;background:#eaf4fb}
+.pin-dot.active{border-color:#08ABE6;box-shadow:0 0 0 3px rgba(8,171,230,.2)}
+.pin-error{min-height:20px;font-size:12px;font-weight:700;color:var(--idss-red);margin-bottom:10px}
+.pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;max-width:270px;margin:0 auto 14px}
+.pin-key{
+  border:1px solid #dce3ea;background:#fff;color:#0b253c;border-radius:12px;
+  padding:12px 0;font-size:18px;font-weight:800;cursor:pointer;transition:.12s;user-select:none
+}
+.pin-key:hover{background:#eaf4fb;border-color:#035EA1}
+.pin-key:active{transform:scale(.96)}
+.pin-key.fn{font-size:13px;background:#f1f5f9;color:#475569}
+.pin-foot{font-size:11px;color:#64748b;border-top:1px solid #e2e8f0;padding-top:10px;margin-top:6px}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.shake{animation:shake .32s}
+
+/* APP SHELL */
+#appShell{display:none}
+.progress{position:fixed;z-index:60;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--imh-pink),var(--imh-green),var(--idss-yellow),var(--idss-cyan),var(--idss-red));width:0}
+.topbar{height:64px;position:fixed;z-index:50;inset:0 0 auto 0;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.03em;font-size:13px}
+.brand-mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--idss-red) 0 48%,var(--idss-blue) 48% 100%);position:relative;box-shadow:0 4px 12px #035ea133}
+.brand-mark:after{content:"";position:absolute;width:9px;height:9px;border-radius:50%;background:var(--idss-yellow);right:4px;top:4px;border:1.5px solid #fff}
+.brand small{display:block;color:var(--muted);font-weight:700;letter-spacing:.1em;font-size:9.5px}
+.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.tool-btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:9px;padding:7px 11px;cursor:pointer;font-size:12px;font-weight:700;transition:.18s;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+.tool-btn:hover{border-color:var(--idss-blue);transform:translateY(-1px)}
+.tool-btn.lock-btn{background:#0b253c;color:#FFCB29;border-color:#0b253c}
+.layout{display:grid;grid-template-columns:var(--sidebar) minmax(0,1fr);padding-top:64px;min-height:100vh}
+aside.sidebar{position:sticky;top:64px;height:calc(100vh - 64px);overflow:auto;padding:22px 16px 30px 20px;border-right:1px solid var(--line);background:#f8fafc}
+.side-label,.eyebrow{font-size:10px;letter-spacing:.16em;font-weight:900;color:var(--idss-blue);text-transform:uppercase}
+.side-label{margin:0 0 10px 10px}
+.toc{display:flex;flex-direction:column;gap:3px}
+.toc a{font-size:12px;line-height:1.35;text-decoration:none;color:#475569;padding:8px 10px;border-radius:8px;border-left:3px solid transparent;font-weight:600}
+.toc a:hover,.toc a.active{color:var(--idss-blue);background:#eaf4fb;border-left-color:var(--idss-cyan)}
+.repo-box{margin:16px 6px 0;padding:12px;border:1px solid #bfdbfe;background:#eff6ff;border-radius:10px;font-size:11.5px;display:flex;flex-direction:column;gap:6px}
+.repo-box a{color:var(--idss-blue);font-weight:700;text-decoration:none;word-break:break-all}
+.repo-box a:hover{text-decoration:underline}
+.confidential{margin:14px 6px 0;padding:12px;border:1px solid #f1c6c8;background:#fff5f5;border-radius:10px;color:#9b1c1c;font-size:11px;font-weight:800;letter-spacing:.05em}
+main{min-width:0;padding:28px clamp(16px,3vw,44px) 80px;width:100%}
+.document{max-width:1360px;margin:auto}
+
+.hero{position:relative;overflow:hidden;border-radius:20px;background:radial-gradient(circle at 90% 10%,#08abe638,transparent 30%),radial-gradient(circle at 8% 95%,#2cb14d28,transparent 32%),linear-gradient(135deg,#000000 0%,#0b253c 60%,#035EA1 100%);color:#fff;padding:clamp(26px,4vw,48px);display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 22px 60px rgba(3,40,75,.22);margin-bottom:26px}
+.hero-kicker{font-size:11px;letter-spacing:.18em;font-weight:900;color:#9edcf5}
+.hero h1{font-size:clamp(26px,4vw,42px);line-height:1.08;letter-spacing:-.035em;max-width:960px;margin:14px 0 12px}
+.hero-sub{font-size:clamp(13.5px,1.5vw,16px);color:#d7e7f2;max-width:850px}
+.hero-rule{width:110px;height:5px;border-radius:10px;background:linear-gradient(90deg,var(--imh-pink),var(--imh-green),var(--idss-yellow),var(--idss-cyan),var(--idss-red))}
+.hero-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.hero-link{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;padding:8px 14px;border-radius:9px;font-size:12px;font-weight:700;text-decoration:none;transition:.15s}
+.hero-link:hover{background:rgba(255,255,255,.24)}
+.hero-bottom{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-top:24px;flex-wrap:wrap}
+.hero-meta{font-size:12px;color:#d2e1eb;line-height:1.6}
+.hero-meta strong{display:block;color:#fff;font-size:12.5px}
+.conf-tag{border:1px solid var(--idss-yellow);background:rgba(255,203,41,.14);color:var(--idss-yellow);padding:7px 13px;border-radius:999px;font-size:10.5px;font-weight:900;letter-spacing:.12em}
+
+.kpi-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:18px 0 26px}
+.kpi-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:15px 17px;box-shadow:0 4px 14px rgba(16,24,32,.04);border-top:4px solid var(--idss-blue)}
+.kpi-card.imh{border-top-color:var(--imh-green)}
+.kpi-card.red{border-top-color:var(--idss-red)}
+.kpi-card.gold{border-top-color:var(--idss-yellow)}
+.kpi-card small{display:block;font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.kpi-card strong{display:block;font-size:24px;font-weight:900;margin:4px 0;color:var(--ink)}
+.kpi-card span{font-size:12px;color:var(--muted)}
+
+h2.sec-title{font-size:clamp(21px,2.5vw,28px);line-height:1.2;letter-spacing:-.02em;margin:48px 0 16px;padding-top:10px;position:relative}
+h2.sec-title:before{content:"";position:absolute;top:-8px;left:0;width:54px;height:4px;border-radius:3px;background:linear-gradient(90deg,var(--idss-red),var(--idss-cyan),var(--imh-green))}
+h3{font-size:17.5px;margin:24px 0 10px}
+p{margin:0 0 12px}
+p.note{font-size:12.5px;color:#475569;border-left:4px solid var(--idss-yellow);padding:10px 14px;background:#fffdf2;border-radius:0 9px 9px 0;margin:14px 0 18px}
+.callout{margin:20px 0 24px;padding:20px 24px;border-radius:14px;background:linear-gradient(120deg,#0b253c,#035EA1);color:#fff;box-shadow:var(--shadow);border-left:6px solid var(--idss-yellow)}
+.callout-label{font-size:10.5px;letter-spacing:.16em;font-weight:900;color:var(--idss-yellow);margin-bottom:6px;text-transform:uppercase}
+.callout p{color:#fff!important;margin:0;font-size:15px}
+
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:18px;margin:16px 0 24px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px 22px;box-shadow:var(--shadow);margin:18px 0 24px}
+.panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.panel-head h3{margin:2px 0 0}
+.tag{border-radius:999px;background:#eaf4fa;color:var(--idss-blue);font-size:11px;font-weight:800;padding:5px 10px;white-space:nowrap}
+.tag.red{background:#fde8e8;color:var(--idss-red)}
+.tag.green{background:#e7f8ec;color:#166534}
+.tag.gold{background:#fff8db;color:var(--imh-brown)}
+
+.table-wrap{overflow-x:auto;margin:14px 0 22px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:540px}
+th{background:#0b253c;color:#fff;text-align:left;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:11px 12px}
+td{padding:10px 12px;border-bottom:1px solid #e8edf2;vertical-align:top}
+tbody tr:nth-child(even){background:#f8fafc}
+tbody tr:hover{background:#edf6fb}
+
+.pill-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.pill-btn{border:1px solid var(--line);background:#f8fafc;color:var(--ink);padding:7px 13px;border-radius:999px;font-size:12px;font-weight:700;cursor:pointer;transition:.15s}
+.pill-btn.active{background:var(--idss-blue);color:#fff;border-color:var(--idss-blue)}
+
+.controls-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;background:#f8fafc;padding:14px;border-radius:12px;border:1px solid var(--line);margin-bottom:16px}
+.ctrl label{display:flex;justify-content:space-between;font-size:12px;font-weight:700;margin-bottom:4px}
+.ctrl input[type=range]{width:100%;accent-color:var(--idss-blue);cursor:pointer}
+.check-list{display:flex;flex-direction:column;gap:8px;font-size:13px}
+
+.svg-wrap{width:100%;overflow-x:auto}
+.svg-wrap svg{width:100%;height:auto;display:block}
+.node-btn{cursor:pointer;transition:.15s}
+.node-btn:hover{opacity:.88;filter:brightness(1.06)}
+.detail-drawer{margin-top:14px;padding:14px 16px;border-radius:12px;background:#f8fafc;border:1px solid var(--line);border-left:5px solid var(--idss-cyan);font-size:13.5px}
+
+.heat-cell{cursor:pointer;border-radius:8px;padding:8px 6px;text-align:center;font-size:11px;font-weight:800;border:1px solid rgba(0,0,0,.08);min-height:46px;display:flex;flex-direction:column;justify-content:center;align-items:center;transition:.15s}
+.heat-cell:hover{transform:scale(1.03);box-shadow:0 4px 12px rgba(0,0,0,.12)}
+.heat-grid{display:grid;grid-template-columns:80px repeat(5,1fr);gap:6px;align-items:stretch;font-size:11px}
+
+.search-panel{display:none;position:fixed;z-index:70;top:74px;right:24px;width:min(400px,calc(100vw - 32px));background:var(--surface);padding:14px;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+.search-panel.open{display:block}
+.search-panel input{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;outline:none}
+.search-status{font-size:11px;color:var(--muted);margin-top:6px}
+mark{background:#FFCB29;color:#000;border-radius:3px}
+.footer{margin-top:46px;border-top:1px solid var(--line);padding:18px 0;color:var(--muted);font-size:11.5px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+.dark{--paper:#0b131b;--surface:#13202b;--ink:#e9eff5;--muted:#9fb0c0;--line:#263949}
+.dark .topbar,.dark aside.sidebar{background:#101b24;border-color:#263949}
+.dark .tool-btn,.dark .pill-btn,.dark .controls-grid,.dark .detail-drawer{background:#172734;color:#e9eff5;border-color:#2d4354}
+.dark .pill-btn.active{background:var(--idss-cyan);color:#000;border-color:var(--idss-cyan)}
+.dark .toc a{color:#adc0cf}
+.dark .toc a:hover,.dark .toc a.active{background:#163449;color:#9edcf5}
+.dark tbody tr:nth-child(even){background:#162532}
+.dark tbody tr:hover{background:#1d3548}
+.dark td{border-color:#263949}
+.dark p.note{background:#242114;color:#e5dbb5}
+.dark .repo-box{background:#132a3e;border-color:#254d70}
+.dark .repo-box a{color:#7dd3fc}
+.dark .confidential{background:#2d191d;border-color:#682f35;color:#fca5a5}
+
+@media(max-width:960px){.layout{display:block}aside.sidebar{display:none}.grid-2{grid-template-columns:1fr}}
+@media print{
+  #pinOverlay,.topbar,.sidebar,.progress,.search-panel,.pill-tabs,.controls-grid,button{display:none!important}
+  .layout{display:block;padding:0}
+  main{padding:0}
+  .panel,.table-wrap,.callout{break-inside:avoid;box-shadow:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ZAKLJUCANI PRISTUP (6-CIFRENI PIN) -->
+<div id="pinOverlay">
+  <div class="pin-card" id="pinCard">
+    <div class="pin-ribbon">
+      <div style="background:#F2557E"></div><div style="background:#2CB14D"></div>
+      <div style="background:#9F633F"></div><div style="background:#FFCB29"></div>
+      <div style="background:#08ABE6"></div><div style="background:#035EA1"></div>
+    </div>
+    <div class="pin-logo">
+      <span class="brand-mark"></span>
+      <span>IDSS <span style="color:#E8262C">+</span> IMH</span>
+    </div>
+    <h2 class="pin-title">Zaštićeni CEO &amp; M&amp;A Pristup</h2>
+    <p class="pin-sub">Unesite 6-cifreni sigurnosni PIN za otključavanje strateškog izvještaja i repozitorija.</p>
+
+    <div class="pin-dots" id="pinDots" onclick="focusHiddenPin()">
+      <div class="pin-dot active"></div><div class="pin-dot"></div><div class="pin-dot"></div>
+      <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
+    </div>
+    <input id="hiddenPinInput" type="tel" inputmode="numeric" maxlength="6" autocomplete="off" style="position:absolute;opacity:0;pointer-events:none;width:1px;height:1px">
+    <div class="pin-error" id="pinError"></div>
+
+    <div class="pin-pad">
+      <button class="pin-key" type="button" onclick="pressDigit('1')">1</button>
+      <button class="pin-key" type="button" onclick="pressDigit('2')">2</button>
+      <button class="pin-key" type="button" onclick="pressDigit('3')">3</button>
+      <button class="pin-key" type="button" onclick="pressDigit('4')">4</button>
+      <button class="pin-key" type="button" onclick="pressDigit('5')">5</button>
+      <button class="pin-key" type="button" onclick="pressDigit('6')">6</button>
+      <button class="pin-key" type="button" onclick="pressDigit('7')">7</button>
+      <button class="pin-key" type="button" onclick="pressDigit('8')">8</button>
+      <button class="pin-key" type="button" onclick="pressDigit('9')">9</button>
+      <button class="pin-key fn" type="button" onclick="clearPin()">Očisti</button>
+      <button class="pin-key" type="button" onclick="pressDigit('0')">0</button>
+      <button class="pin-key fn" type="button" onclick="backDigit()">⌫</button>
+    </div>
+
+    <div class="pin-foot">
+      Strogo povjerljivo · Buka 11 &amp; 13, Sarajevo<br>
+      Repo: <code>mulalicd.github.io</code>
+    </div>
+  </div>
+</div>
+
+<!-- GLAVNI SADRZAJ (SKRIVEN DOK SE NE UNESE PIN) -->
+<div id="appShell">
+  <div class="progress" id="progress"></div>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <span>IDSS <span style="color:var(--idss-red)">+</span> IMH<small>INTEGRISANA OBRAZOVNA GRUPA · INTERAKTIVNI IZVJEŠTAJ 2026.</small></span>
+    </div>
+    <div class="toolbar">
+      <a class="tool-btn" href="https://drive.google.com/drive/folders/1VVawONLFPnJQt9psnUM6Y-aNj3YeMHgI?usp=sharing" target="_blank" rel="noopener">📁 VDR Google Disk</a>
+      <a class="tool-btn" href="https://mulalicd.github.io/https-github.com-mulalicd-IZVJESTAJ-IMH-IDSS/" target="_blank" rel="noopener">🌐 Repo URL</a>
+      <button class="tool-btn" id="searchBtn">⌕ Pretraži</button>
+      <button class="tool-btn" id="themeBtn">◐ Tema</button>
+      <button class="tool-btn" onclick="window.print()">🖨️ PDF</button>
+      <button class="tool-btn lock-btn" onclick="lockApp()">🔒 Zaključaj</button>
+    </div>
+  </header>
+
+  <div class="search-panel" id="searchPanel">
+    <input id="searchInput" type="search" placeholder="Pretraži pojam, konto, ugovor ili broj...">
+    <div class="search-status" id="searchStatus">Unesite najmanje 2 znaka.</div>
+  </div>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="side-label">NAVIGACIJA KROZ ZNANJE</div>
+      <nav class="toc" id="toc">
+        <a href="#sec1">1. Izvršni sažetak &amp; 10 Nalaza</a>
+        <a href="#sec2">2. Profil, Pravo &amp; Mapa uma</a>
+        <a href="#sec3">3. Historija 2022–2025 &amp; Presjek 2026.</a>
+        <a href="#sec4">4. Bilans, Dugovi &amp; Carve-Out Simulator</a>
+        <a href="#sec5">5. Komercijala &amp; Modelator 2027–2032</a>
+        <a href="#sec6">6. SWOT &amp; Matrica novih linija</a>
+        <a href="#sec7">7. Akcijski Workflow &amp; M&amp;A Status</a>
+        <a href="#sec8">8. Registar rizika &amp; Toplotna mapa</a>
+        <a href="#sec9">9. Upravljanje, KPI &amp; Prilozi</a>
+      </nav>
+      <div class="repo-box">
+        <strong>🔗 Povezani Repozitoriji:</strong>
+        <a href="https://mulalicd.github.io/https-github.com-mulalicd-IZVJESTAJ-IMH-IDSS/" target="_blank" rel="noopener">🌐 Web App Repo (GitHub Pages)</a>
+        <a href="https://drive.google.com/drive/folders/1VVawONLFPnJQt9psnUM6Y-aNj3YeMHgI?usp=sharing" target="_blank" rel="noopener">📁 VDR Data Room (88 dokumenata)</a>
+      </div>
+      <div class="confidential">
+        STROGO POVJERLJIVO · PIN ZAŠTITA<br>
+        <span style="font-weight:500">Bilansi 31.10.2026. + VDR (88 dokumenata) + Pravni nalazi</span>
+      </div>
+    </aside>
+
+    <main>
+      <div class="document">
+        <section class="hero">
+          <div>
+            <div class="hero-kicker">INTERNATIONALE DEUTSCHE SCHULE SARAJEVO <span style="color:var(--idss-red)">+</span> INTERNATIONAL MONTESSORI HOUSE</div>
+            <div class="hero-rule" style="margin-top:16px"></div>
+            <h1>Integrisani Strateški, Forenzički &amp; M&amp;A Izvještaj 2026–2032.</h1>
+            <div class="hero-sub">Kompletno operativno, finansijsko, ugovorno i pravno znanje na jednom mjestu – s interaktivnim modelatorima scenarija, simulatorom zaduženosti, mapom uma i toplotnom mapom rizika.</div>
+            <div class="hero-links">
+              <a class="hero-link" href="https://mulalicd.github.io/https-github.com-mulalicd-IZVJESTAJ-IMH-IDSS/" target="_blank" rel="noopener">🌐 Otvori Web Repo (GitHub Pages)</a>
+              <a class="hero-link" href="https://drive.google.com/drive/folders/1VVawONLFPnJQt9psnUM6Y-aNj3YeMHgI?usp=sharing" target="_blank" rel="noopener">📁 Otvori Google Disk VDR (88 dokumenata)</a>
+            </div>
+          </div>
+          <div class="hero-bottom">
+            <div class="hero-meta">
+              <strong>STANJE PODATAKA: BRUTO BILANSI 31.10.2026. | KUPCI 02.11.2026. | VDR 23.11.2026.</strong>
+              Sjedište: Buka 11 &amp; 13, 71000 Sarajevo | Vlasnik/Osnivač: Lamia Kacila (100%) | Direktor IDSS: Davor Mulalić
+            </div>
+            <div class="conf-tag">🔒 PIN ZAŠTIĆENO · CEO COMMAND</div>
+          </div>
+        </section>
+
+        <!-- KPI STRIP -->
+        <div class="kpi-strip">
+          <div class="kpi-card">
+            <small>Konsolidovani prihod 2025.</small>
+            <strong>1.701.240 KM</strong>
+            <span>Rast +25,3% u odnosu na 2022. (1.357.925 KM)</span>
+          </div>
+          <div class="kpi-card red">
+            <small>EBITDA grupe (2025. → ŠG 26/27)</small>
+            <strong>143.310 → 9.334 KM</strong>
+            <span>Pad marže 8,4% → 0,6% (troškovi rada 79%)</span>
+          </div>
+          <div class="kpi-card imh">
+            <small>Vertikala IMH → IDSS</small>
+            <strong>90/95 · 83/135</strong>
+            <span>64% prvačića dolazi iz IMH (7 od 11)</span>
+          </div>
+          <div class="kpi-card gold">
+            <small>Eksterni dug (31.10.2026.)</small>
+            <strong>218.575 / 433.458 KM</strong>
+            <span>Bez leasinga / s leasingom (+93.485 KM osnivač)</span>
+          </div>
+          <div class="kpi-card">
+            <small>M&amp;A Data Room (Google Disk)</small>
+            <strong>88 dokumenata</strong>
+            <span>+ 25 tačaka Izjašnjenja Uprave (20.11.2026.)</span>
+          </div>
+        </div>
+
+        <!-- SEKCIJA 1 -->
+        <h2 class="sec-title" id="sec1">1. Izvršni sažetak i Deset forenzičkih nalaza</h2>
+        <p><strong>Grupa ima zdrav i teško kopirljiv obrazovni proizvod</strong> (njemački međunarodni kurikulum, trojezičnost i autentični Montessori program od 6 mjeseci do IX razreda na jednoj lokaciji u centru Sarajeva), ali <strong>neodrživu tekuću ekonomsku i bilansnu strukturu</strong>. Prihodi rastu, no troškovi rada rasli su brže (broj zaposlenih porastao +53% u 2023–2025., s 32 na 49, dok je prihod rastao +12%). Bez intervencije, EBITDA u ŠG 2026/27. pada na <strong>9.334 KM (0,6%)</strong>; uz disciplinovan program stabilizacije, bazni scenarij do ŠG 2031/32. dostiže <strong>2,35 mil. KM prihoda</strong> i <strong>295.987 KM EBITDA (12,6%)</strong>.</p>
+
+        <div class="callout">
+          <div class="callout-label">KONSOLIDOVANI CEO ZAKLJUČAK (POSLOVANJE + M&amp;A)</div>
+          <p>Vrijednost grupe u pregovorima ili daljem razvoju ne brani se projekcijama, nego rješavanjem <strong>šest ključnih tačaka</strong>: (1) formalizacija zakupa Buka 13 za IDSS i oslobađanje lične garancije osnivača (Čl. 9.3); (2) zatvaranje naloga KUIP KS i upis novog direktora IMH; (3) nezavisna pravno-poreska ocjena transakcije od 100.000 KM (MF Banka); (4) rješavanje duga osnivača (184.692 KM) vs. pozajmice (93.485 KM) i Porsche leasinga; (5) sanacija javnih obaveza (46.043 KM sporazumi + doprinosi) i neravnoteže bilansa IDSS (−812,54 KM); (6) cjenovna disciplina u IDSS-u (smanjenje popusta sa 12,6% na ≤8%).</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="panel">
+            <h3>🔟 Deset ključnih nalaza (Verifikovano na 31.10./02.11.2026.)</h3>
+            <ol style="margin:0;padding-left:18px;font-size:13.5px;display:grid;gap:7px">
+              <li><strong>Erozija marže:</strong> Prihod rastao 1,516 mil. (2023.) → 1,701 mil. KM (2025.), dok je EBITDA pala 337.306 → 143.310 KM (22,2% → 8,4%).</li>
+              <li><strong>Troškovi rada (79%):</strong> Udio u prihodu porastao 55,6% (2023.) → 71,9% (2025.) → 1.332.742 KM godišnje (79% bazne 2026/27).</li>
+              <li><strong>Strukturni manjak IDSS-a:</strong> 83 ugovora = 779.476 KM prihoda (9.391 KM/uč.), naspram ~900.153 KM troška (10.845 KM/uč.). Prelomna tačka ≈ 98 učenika.</li>
+              <li><strong>Popusti 12,6%:</strong> Odstupanje od cjenovnika iznosi 108.324 KM (5 ugovora bez školarine = 53.820 KM; samo 1 strana tarifa).</li>
+              <li><strong>Oscilacije upisa IDSS:</strong> 79 → 94 → 68 → 83 (61,5% od 135 mjesta); tri razreda imaju ≤6 učenika (V=6, VII=4, VIII=6).</li>
+              <li><strong>Snaga vertikale:</strong> 7 od 11 prvačića u 2026/27. dolazi iz IMH; vrtić radi na 94,7% kapaciteta (90/95 mjesta).</li>
+              <li><strong>Međukompanijska neuporedivost:</strong> 2022: 264.906 KM zakupa; 2023–24: skoro bez naknade; 2025: 99.212 KM; 2026: 100.000 KM fakture.</li>
+              <li><strong>Čišćenje bilansa:</strong> 184.692 KM potraživanja od osnivača; negativan kapital (−37.328 KM); IDSS bilans van ravnoteže (−812,54 KM).</li>
+              <li><strong>Tanka likvidnost:</strong> Knjižna gotovina 89.712 KM, od čega 57.912 KM na prelaznim kontima (stvarno ~31.800 KM, dok su samo depoziti roditelja IMH 50.417 KM).</li>
+              <li><strong>Prostor &amp; garancije:</strong> Zakup Buka 11/13 (5 KM/m² do 31.08.2033.) glasi samo na IMH uz zabranu podzakupa (Čl. 6.5) i lično izvršenje Lamie Kacile (Čl. 9.3).</li>
+            </ol>
+          </div>
+
+          <div class="panel">
+            <h3>📌 Šest odluka koje se traže od vlasnika</h3>
+            <ol style="margin:0;padding-left:18px;font-size:13.5px;display:grid;gap:8px">
+              <li><strong>Usvajanje programa stabilizacije</strong> i baznog scenarija kao planske osnove.</li>
+              <li><strong>Odobrenje finansijskog okvira ~250.000 KM</strong> (dokapitalizacija 150.000 KM + refinansiranje 100.000 KM) za izmirenje javnih obaveza i likvidnosnu rezervu.</li>
+              <li><strong>Nezavisna pravno-poreska revizija</strong> međukompanijskih transakcija 2022–2026. (uklj. kredit od 100.000 KM).</li>
+              <li><strong>Nova cjenovna politika i politika popusta</strong> od ŠG 2027/28. (limit stipendija 3%, strana tarifa po pravilu).</li>
+              <li><strong>Ciljna organizaciona arhitektura</strong> („dva brenda, jedan sistem“) i pravila korporativnog upravljanja.</li>
+              <li><strong>Odluka o prebijanju</strong> obaveze IMH-a prema osnivaču (93.485 KM) s potraživanjima od osnivača (184.692 KM) i prenos/carve-out leasinga Porsche Cayennea.</li>
+            </ol>
+            <p class="note" style="margin-top:14px;margin-bottom:0"><strong>Usklađenje s ranijim izvještajem (31.08. vs. 31.10.2026.):</strong> Podaci na 31.08.2026. iskazivali su normalizovani rezultat 75.864 KM (razlika 1 KM od zbira 15.145 + 60.720) i eksterni dug 188.063 KM. Na 31.10.2026. normalizovani rezultat iznosi 71.193 KM (56.130 KM nakon 2 neproknjižene fakture zakupa), a dug bez leasinga 218.575 KM.</p>
+          </div>
+        </div>
+
+        <!-- SEKCIJA 2: PROFIL, PRAVO I MAPA UMA -->
+        <h2 class="sec-title" id="sec2">2. Pravna struktura, katastar, uprava &amp; Interaktivna Mapa Uma</h2>
+        <div class="grid-2">
+          <div class="panel" style="border-left:5px solid var(--imh-green)">
+            <div class="panel-head">
+              <div><span class="eyebrow" style="color:var(--imh-brown)">VRTIĆ IMH · 2012–2026.</span><h3>PPU „International Montessori House“ Sarajevo</h3></div>
+              <span class="tag green">90 / 95 djece (94,7%)</span>
+            </div>
+            <ul style="margin:0;padding-left:18px;font-size:13px;display:grid;gap:5px">
+              <li><strong>Identifikacija:</strong> MBS <code>65-01-0165-12</code> | JIB <code>4201731140006</code> | KD <code>85.10</code></li>
+              <li><strong>Sjedište &amp; Katastar:</strong> Buka br. 11 (brisana Avde Smajlovića 9 po Rješenju Ministarstva KS br. <code>11-06/01-34-42039-1/26</code> od 14.10.2026.); parcele <strong>k.č. 1756/1 i 1756/2, K.O. Sarajevo IV</strong> (stari premjer K.O. Sarajevo XLVI).</li>
+              <li><strong>Vlasnički lanac:</strong> 2012: Lamia Kacila 50% + Anja Imberg 50% (<code>OPU-IP 30/12</code>) → <strong>09.03.2015.: Anja Imberg bez naknade ustupa 50% Lamiji Kacili</strong> (Haški Apostille 10.03.2015., upisano 20.05.2015., kapital 2.000 KM).</li>
+              <li><strong>Uprava &amp; KUIP nalog:</strong> Upisan direktor Davor Mulalić (limit 2.000 KM; u bankama KDP Neograničeno). <strong>04.11.2026.</strong> UO po rješenju KUIP KS (<code>30.09.2026.</code>, rok 30 dana od 23.10.) razriješio Davora Mulalića, imenovao v.d. <strong>Anesa Memića</strong> i raspisao konkurs do 16.11.2026.</li>
+              <li><strong>Zakup:</strong> Notarski ugovor <code>OPU-IP-850/2023</code> (27.09.2023.) s Općinom Centar za Buka 11 i 13 (1.287,40 m²) do <strong>31.08.2033.</strong> (6.437 KM/mj + PDV = 7.531,29 KM).</li>
+            </ul>
+          </div>
+
+          <div class="panel" style="border-left:5px solid var(--idss-blue)">
+            <div class="panel-head">
+              <div><span class="eyebrow">OSNOVNA ŠKOLA IDSS · 2015–2026.</span><h3>PU „Internationale Deutsche Schule Sarajevo“</h3></div>
+              <span class="tag">83 / 135 učenika (61,5%)</span>
+            </div>
+            <ul style="margin:0;padding-left:18px;font-size:13px;display:grid;gap:5px">
+              <li><strong>Identifikacija:</strong> MBS <code>65-05-0013-16</code> | JIB <code>4202220420007</code> | KD <code>85.20</code></li>
+              <li><strong>Sjedište &amp; Katastar:</strong> Buka br. 13; parcela <strong>k.č. 1757/1, K.O. Sarajevo IV</strong>. Rješenje Ministarstva KS <code>UP-11-01-38-2587/16</code> od <strong>19.02.2016.</strong> (Reg. br. 76, str. 76, Buka 11–13, dostavljeno i Općini Centar).</li>
+              <li><strong>Vlasnički lanac:</strong> 25.04.2016. osnovao PPU IMH (1.000 KM, 100%, <code>OPU-IP 217/2016</code> od 10.02.2016.) → <strong>05.07.2019.</strong> (<code>065-0-Reg-19-003215</code>, Pravila <code>044/2019-1</code> od 19.06.2019.) IMH istupa, <strong>100% osnivač postaje Lamia Kacila</strong>.</li>
+              <li><strong>Uprava &amp; Odbori:</strong> Direktor <strong>Davor Mulalić</strong> (od 29.12.2020., limit 2.000 KM; Menadžerski ugovor 01.10.2024.–01.10.2028.: 2.800 KM neto, 5% profita, 6 mj. otkazni/otpremnina, 12 mj. non-compete 50%). Nadzorni odbor se ne bira (akt 2016, str. 12).</li>
+              <li><strong>Kadrovi &amp; Tarife:</strong> 22 na platnom spisku + 6 vanjskih saradnika (ugovori o djelu 93.117 KM u 01–10/2026.). Školarina I–IV 9.700/11.970 KM; V–IX 11.030/13.700 KM.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- INTERAKTIVNA MAPA UMA -->
+        <div class="panel">
+          <div class="panel-head">
+            <div><span class="eyebrow">INTERAKTIVNA MAPA UMA (MIND MAP)</span><h3>Povezana arhitektura znanja IDSS + IMH</h3><p style="font-size:12px;color:var(--muted);margin:2px 0 0">Kliknite bilo koji čvor na mapi da učitate konkretne ugovore, brojke i akcije.</p></div>
+            <span class="tag gold">Klikabilni SVG</span>
+          </div>
+          <div class="svg-wrap">
+            <svg viewBox="0 0 1100 360" xmlns="http://www.w3.org/2000/svg">
+              <line x1="550" y1="180" x2="195" y2="65" stroke="#035EA1" stroke-width="3"/>
+              <line x1="550" y1="180" x2="195" y2="180" stroke="#2CB14D" stroke-width="3"/>
+              <line x1="550" y1="180" x2="195" y2="295" stroke="#9F633F" stroke-width="3"/>
+              <line x1="550" y1="180" x2="905" y2="65" stroke="#E8262C" stroke-width="3"/>
+              <line x1="550" y1="180" x2="905" y2="180" stroke="#08ABE6" stroke-width="3"/>
+              <line x1="550" y1="180" x2="905" y2="295" stroke="#F2557E" stroke-width="3"/>
+
+              <g class="node-btn" onclick="selectMindNode('center')">
+                <rect x="430" y="132" width="240" height="96" rx="18" fill="#0b253c" stroke="#FFCB29" stroke-width="3"/>
+                <text x="550" y="168" text-anchor="middle" fill="#FFCB29" font-size="13" font-weight="800">GRUPA IDSS &amp; IMH</text>
+                <text x="550" y="190" text-anchor="middle" fill="#ffffff" font-size="11.5" font-weight="600">1,70 mil. KM | 173 djece | 42+6 ljudi</text>
+                <text x="550" y="210" text-anchor="middle" fill="#9edcf5" font-size="10.5">Lamia Kacila (100% oba subjekta)</text>
+              </g>
+
+              <g class="node-btn" onclick="selectMindNode('vlasnistvo')">
+                <rect x="25" y="28" width="275" height="72" rx="12" fill="#eaf4fb" stroke="#035EA1" stroke-width="2"/>
+                <text x="162" y="56" text-anchor="middle" fill="#035EA1" font-size="12.5" font-weight="800">1. VLASNIŠTVO, UPRAVA &amp; KUIP</text>
+                <text x="162" y="77" text-anchor="middle" fill="#1e293b" font-size="11">Anja Imberg 2015 · IDSS 2019 · KUIP nalog</text>
+              </g>
+
+              <g class="node-btn" onclick="selectMindNode('prostor')">
+                <rect x="25" y="144" width="275" height="72" rx="12" fill="#e9f8ee" stroke="#2CB14D" stroke-width="2"/>
+                <text x="162" y="172" text-anchor="middle" fill="#166534" font-size="12.5" font-weight="800">2. PROSTOR, ZAKUP &amp; KATASTAR</text>
+                <text x="162" y="193" text-anchor="middle" fill="#1e293b" font-size="11">Buka 11/13 · 5 KM/m² do 2033. · Čl. 6.5 &amp; 9.3</text>
+              </g>
+
+              <g class="node-btn" onclick="selectMindNode('komercijala')">
+                <rect x="25" y="260" width="275" height="72" rx="12" fill="#fdf6ef" stroke="#9F633F" stroke-width="2"/>
+                <text x="162" y="288" text-anchor="middle" fill="#9F633F" font-size="12.5" font-weight="800">3. VERTIKALA, UPIS &amp; POPUSTI</text>
+                <text x="162" y="309" text-anchor="middle" fill="#1e293b" font-size="11">64% prelazak · Popusti 108.324 KM · Manjak −121k</text>
+              </g>
+
+              <g class="node-btn" onclick="selectMindNode('finansije')">
+                <rect x="800" y="28" width="275" height="72" rx="12" fill="#fdecec" stroke="#E8262C" stroke-width="2"/>
+                <text x="937" y="56" text-anchor="middle" fill="#b91c1c" font-size="12.5" font-weight="800">4. KREDITI, BILANS &amp; POREZI</text>
+                <text x="937" y="77" text-anchor="middle" fill="#1e293b" font-size="11">MF 100k fakture · Javni dug · −812,54 KM bilans</text>
+              </g>
+
+              <g class="node-btn" onclick="selectMindNode('porsche')">
+                <rect x="800" y="144" width="275" height="72" rx="12" fill="#e6f7fd" stroke="#08ABE6" stroke-width="2"/>
+                <text x="937" y="172" text-anchor="middle" fill="#035EA1" font-size="12.5" font-weight="800">5. OSNIVAČ, POZAJMICA &amp; LEASING</text>
+                <text x="937" y="193" text-anchor="middle" fill="#1e293b" font-size="11">184.692 KM vs 93.485 KM · Porsche 100.980 EUR</text>
+              </g>
+
+              <g class="node-btn" onclick="selectMindNode('ma')">
+                <rect x="800" y="260" width="275" height="72" rx="12" fill="#fdeef3" stroke="#F2557E" stroke-width="2"/>
+                <text x="937" y="288" text-anchor="middle" fill="#be185d" font-size="12.5" font-weight="800">6. M&amp;A DATA ROOM &amp; ANEKS 1</text>
+                <text x="937" y="309" text-anchor="middle" fill="#1e293b" font-size="11">88 VDR fajlova · 25 Izjašnjenja · 13 DD pitanja</text>
+              </g>
+            </svg>
+          </div>
+          <div id="mindDrawer" class="detail-drawer">Kliknite na bilo koji od 7 čvorova iznad za forenzički sažetak te grane.</div>
+        </div>
+
+        <!-- SEKCIJA 3: HISTORIJA I PRESJEK 2026 -->
+        <h2 class="sec-title" id="sec3">3. Finansijska historija (2022–2025.), Presjek 2026. &amp; Tokovi novca</h2>
+        <div class="grid-2">
+          <div class="panel">
+            <div class="panel-head">
+              <div><span class="eyebrow">UPOREDNI GRAFIKON</span><h3>Prihodi, EBITDA &amp; Udio troškova rada</h3></div>
+              <span class="tag">2022–2026/27</span>
+            </div>
+            <div class="svg-wrap">
+              <svg viewBox="0 0 560 250" xmlns="http://www.w3.org/2000/svg">
+                <line x1="55" y1="200" x2="535" y2="200" stroke="#cbd5e1" stroke-width="1.5"/>
+                <line x1="55" y1="40" x2="55" y2="200" stroke="#cbd5e1" stroke-width="1.5"/>
+                <text x="48" y="204" text-anchor="end" font-size="10" fill="#64748b">0</text>
+                <text x="48" y="124" text-anchor="end" font-size="10" fill="#64748b">1.0M</text>
+                <text x="48" y="44" text-anchor="end" font-size="10" fill="#64748b">2.0M</text>
+                <line x1="55" y1="120" x2="535" y2="120" stroke="#e2e8f0" stroke-dasharray="4 4"/>
+                <line x1="55" y1="40" x2="535" y2="40" stroke="#e2e8f0" stroke-dasharray="4 4"/>
+
+                <rect x="78" y="91" width="38" height="109" rx="4" fill="#035EA1"/>
+                <text x="97" y="85" text-anchor="middle" font-size="10" font-weight="700" fill="#035EA1">1.36M</text>
+                <text x="108" y="218" text-anchor="middle" font-size="11" font-weight="700">2022.</text>
+
+                <rect x="172" y="79" width="38" height="121" rx="4" fill="#035EA1"/>
+                <rect x="213" y="173" width="24" height="27" rx="3" fill="#2CB14D"/>
+                <text x="191" y="73" text-anchor="middle" font-size="10" font-weight="700" fill="#035EA1">1.52M</text>
+                <text x="225" y="167" text-anchor="middle" font-size="9.5" font-weight="800" fill="#166534">337k</text>
+                <text x="205" y="218" text-anchor="middle" font-size="11" font-weight="700">2023.</text>
+
+                <rect x="268" y="72" width="38" height="128" rx="4" fill="#035EA1"/>
+                <rect x="309" y="185" width="24" height="15" rx="3" fill="#2CB14D"/>
+                <text x="287" y="66" text-anchor="middle" font-size="10" font-weight="700" fill="#035EA1">1.60M</text>
+                <text x="321" y="179" text-anchor="middle" font-size="9.5" font-weight="800" fill="#166534">192k</text>
+                <text x="301" y="218" text-anchor="middle" font-size="11" font-weight="700">2024.</text>
+
+                <rect x="364" y="64" width="38" height="136" rx="4" fill="#035EA1"/>
+                <rect x="405" y="189" width="24" height="11" rx="3" fill="#FFCB29"/>
+                <text x="383" y="58" text-anchor="middle" font-size="10" font-weight="700" fill="#035EA1">1.70M</text>
+                <text x="417" y="183" text-anchor="middle" font-size="9.5" font-weight="800" fill="#9F633F">143k</text>
+                <text x="397" y="218" text-anchor="middle" font-size="11" font-weight="700">2025.</text>
+
+                <rect x="460" y="65" width="38" height="135" rx="4" fill="#08ABE6"/>
+                <rect x="501" y="197" width="24" height="3" rx="1" fill="#E8262C"/>
+                <text x="479" y="59" text-anchor="middle" font-size="10" font-weight="700" fill="#035EA1">1.69M</text>
+                <text x="513" y="190" text-anchor="middle" font-size="9.5" font-weight="800" fill="#E8262C">9.3k</text>
+                <text x="493" y="218" text-anchor="middle" font-size="11" font-weight="700">ŠG 26/27</text>
+
+                <rect x="75" y="232" width="12" height="10" fill="#035EA1"/><text x="92" y="241" font-size="10.5" fill="#475569">Konsolidovani prihod</text>
+                <rect x="225" y="232" width="12" height="10" fill="#2CB14D"/><text x="242" y="241" font-size="10.5" fill="#475569">EBITDA grupe</text>
+                <rect x="350" y="232" width="12" height="10" fill="#E8262C"/><text x="367" y="241" font-size="10.5" fill="#475569">Kritičan pad marže (0,6%)</text>
+              </svg>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <div><span class="eyebrow">WORKFLOW MAPA TOKOVA NOVCA</span><h3>Ekonomski i kreditni tokovi unutar grupe</h3></div>
+              <span class="tag red">Međukompanijski rizik</span>
+            </div>
+            <div class="svg-wrap">
+              <svg viewBox="0 0 560 250" xmlns="http://www.w3.org/2000/svg">
+                <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#475569"/></marker></defs>
+                <rect x="190" y="8" width="180" height="44" rx="8" fill="#000000"/>
+                <text x="280" y="28" text-anchor="middle" fill="#FFCB29" font-size="11" font-weight="800">OPĆINA CENTAR (Zakupodavac)</text>
+                <text x="280" y="43" text-anchor="middle" fill="#fff" font-size="10">Buka 11 i 13 (1.287,40 m²) do 2033.</text>
+
+                <rect x="20" y="96" width="180" height="64" rx="10" fill="#2CB14D"/>
+                <text x="110" y="118" text-anchor="middle" fill="#fff" font-size="12" font-weight="800">PPU IMH (Vrtić)</text>
+                <text x="110" y="135" text-anchor="middle" fill="#fff" font-size="10">Jedini zakupac · Kredit MF 100k</text>
+                <text x="110" y="150" text-anchor="middle" fill="#D8E155" font-size="10">Leasing 100.980 EUR</text>
+
+                <rect x="360" y="96" width="180" height="64" rx="10" fill="#035EA1"/>
+                <text x="450" y="118" text-anchor="middle" fill="#fff" font-size="12" font-weight="800">PU IDSS (Škola)</text>
+                <text x="450" y="135" text-anchor="middle" fill="#fff" font-size="10">Korisnik Buka 13 (bez sagl. Općine)</text>
+                <text x="450" y="150" text-anchor="middle" fill="#9edcf5" font-size="10">Manjak −120.677 KM u 26/27</text>
+
+                <rect x="190" y="198" width="180" height="44" rx="8" fill="#FFCB29"/>
+                <text x="280" y="218" text-anchor="middle" fill="#000" font-size="11" font-weight="800">RODITELJI &amp; MF BANKA</text>
+                <text x="280" y="233" text-anchor="middle" fill="#000" font-size="10">Školarine + Namjenski kredit 100k</text>
+
+                <path d="M110,96 L210,54" stroke="#2CB14D" stroke-width="2" marker-end="url(#arr)"/>
+                <text x="122" y="72" font-size="9.5" font-weight="700" fill="#166534">7.531 KM/mj</text>
+
+                <path d="M358,118 L205,118" stroke="#035EA1" stroke-width="2" marker-end="url(#arr)"/>
+                <text x="280" y="112" text-anchor="middle" font-size="9.5" font-weight="700" fill="#035EA1">2025: 99k | 2026: 132k troškovi</text>
+
+                <path d="M205,142 L356,142" stroke="#E8262C" stroke-width="2.2" marker-end="url(#arr)"/>
+                <text x="280" y="157" text-anchor="middle" font-size="9.5" font-weight="800" fill="#E8262C">Kredit 100k → Fakture IDSS (0211/6217)</text>
+
+                <path d="M235,198 L155,163" stroke="#475569" stroke-width="1.8" marker-end="url(#arr)"/>
+                <path d="M325,198 L405,163" stroke="#475569" stroke-width="1.8" marker-end="url(#arr)"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>📊 Uporedni prikaz poslovanja 2022–2025. i presjeka 2026. (`31.05.`, `31.08.`, `31.10.2026.`)</h3>
+          <div class="pill-tabs">
+            <button class="pill-btn active" onclick="showHistTab('hist2225', this)">Historija 2022–2025. (Konsolidovano)</button>
+            <button class="pill-btn" onclick="showHistTab('presjek26', this)">Tekuća 2026. (31.05. vs 31.08. vs 31.10.)</button>
+            <button class="pill-btn" onclick="showHistTab('interco', this)">Međukompanijski tokovi 2022–2026.</button>
+          </div>
+          <div id="histTableWrap" class="table-wrap" style="margin:0"></div>
+        </div>
+
+        <!-- SEKCIJA 4: BILANS, DUGOVI & CARVE-OUT SIMULATOR -->
+        <h2 class="sec-title" id="sec4">4. Kvalitet bilansa, Javne obaveze &amp; Interaktivni Simulator Zaduženosti</h2>
+        <div class="grid-2">
+          <div class="panel">
+            <h3>🎛️ Interaktivni Simulator Bilansa, Duga &amp; Carve-Out Odluka</h3>
+            <p style="font-size:12.5px;color:var(--muted)">Uključite/isključite strateške odluke s kojima izlazite pred vlasnika ili kupca:</p>
+            <div class="check-list">
+              <label><input type="checkbox" id="simOffset" onchange="calcBalanceSim()" checked> <strong>Prebijanje s osnivačem (Odluka 6):</strong> Prebiti 93.485 KM pozajmice sa 184.692 KM potraživanja (ostaje neto 91.207 KM od osnivača)</label>
+              <label><input type="checkbox" id="simCarve" onchange="calcBalanceSim()" checked> <strong>Prenos leasinga Porschea (104.015 KM):</strong> Prenos na osnivača uz saglasnost Sparkasse Leasinga (skida ~2.010 KM/mj rate)</label>
+              <label><input type="checkbox" id="simCap" onchange="calcBalanceSim()"> <strong>Program stabilizacije (Odluka 2):</strong> Dokapitalizacija 150.000 KM + Refinansiranje 100.000 KM za zatvaranje javnih obaveza i rezervu</label>
+              <label><input type="checkbox" id="simCollect91" onchange="calcBalanceSim()"> <strong>Naplata ostatka od osnivača (91.207 KM):</strong> Uplaćeno u narednih 12 mjeseci za smanjenje skupog duga</label>
+            </div>
+            <div id="balanceSimOut" style="margin-top:14px;padding:14px;border-radius:10px;background:#f8fafc;border:1px solid var(--line);font-size:13px"></div>
+          </div>
+
+          <div class="panel">
+            <h3>⚠️ Forenzička tabela: Javne obaveze, Krediti &amp; Bilansne anomalije (31.10.2026.)</h3>
+            <div class="table-wrap" style="margin:0">
+              <table>
+                <thead><tr><th>Pozicija / Konto</th><th>IDSS</th><th>IMH</th><th>Status / Nalaz</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>Sporazumi Porezna uprava</strong></td><td>42.327 KM</td><td>3.716 KM</td><td>Uprava tvrdi izmireno; salda 31.10. nepromijenjena (46.043 KM)</td></tr>
+                  <tr><td><strong>Neisplaćene plate / doprinosi</strong></td><td>49.257 KM neto</td><td>62.050 KM dop.</td><td>~1,7 mj. plata IDSS; ~4 obračuna doprinosa IMH (+75k iznad roka)</td></tr>
+                  <tr><td><strong>Porezi na ugovore o djelu</strong></td><td>62.916 KM</td><td>—</td><td>Raniji dug iz 2024. ne smanjuje se; ukupno ugovori 01–10/26: 93.117 KM</td></tr>
+                  <tr><td><strong>Prelazna konta gotovine</strong></td><td>—</td><td>58.847 KM</td><td>Konta 2009 i 207701 nisu zatvorena (stvarno stanje IMH ~11.400 KM!)</td></tr>
+                  <tr><td><strong>Depoziti roditelja</strong></td><td>1.000 KM (rez.)</td><td>50.417 KM</td><td>U IMH-u depoziti 4,4× veći od stvarne gotovine!</td></tr>
+                  <tr><td><strong>Prekoračenja &amp; zajmovi</strong></td><td>5.554 ov. + 23.700</td><td>85.290 ov. + 10.945</td><td>IDSS zajam 23.700 KM (4221-110) bez imena zajmodavca! Overdraft 15k istekao 12.06.26.</td></tr>
+                  <tr><td><strong>Neravnoteža Bruto bilansa</strong></td><td>−812,54 KM</td><td>0</td><td>5.300.494,50 duguje vs 5.301.307,04 potražuje – hitna ispravka!</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- SEKCIJA 5: KOMERCIJALA & INTERAKTIVNI MODELATOR 2027-2032 -->
+        <h2 class="sec-title" id="sec5">5. Komercijalna analiza, Popusti &amp; Interaktivni Modelator 2027–2032.</h2>
+        <div class="grid-2">
+          <div class="panel">
+            <div class="panel-head">
+              <div><span class="eyebrow">POPUNJENOST PO RAZREDIMA (ŠG 2026/27)</span><h3>IDSS: 83 od 135 mjesta (61,5%)</h3></div>
+              <span class="tag red">3 razreda ≤ 6 učenika</span>
+            </div>
+            <div class="svg-wrap">
+              <svg viewBox="0 0 540 205" xmlns="http://www.w3.org/2000/svg">
+                <line x1="35" y1="165" x2="520" y2="165" stroke="#cbd5e1"/>
+                <line x1="35" y1="117" x2="520" y2="117" stroke="#E8262C" stroke-dasharray="4 4"/>
+                <text x="518" y="112" text-anchor="end" font-size="9.5" fill="#E8262C" font-weight="700">Prag 6 učenika</text>
+                <g font-size="11" font-weight="700" text-anchor="middle">
+                  <rect x="48" y="77" width="32" height="88" rx="4" fill="#035EA1"/><text x="64" y="71" fill="#035EA1">11</text><text x="64" y="183">I</text>
+                  <rect x="100" y="93" width="32" height="72" rx="4" fill="#08ABE6"/><text x="116" y="87" fill="#035EA1">9</text><text x="116" y="183">II</text>
+                  <rect x="152" y="61" width="32" height="104" rx="4" fill="#035EA1"/><text x="168" y="55" fill="#035EA1">13</text><text x="168" y="183">III</text>
+                  <rect x="204" y="85" width="32" height="80" rx="4" fill="#035EA1"/><text x="220" y="79" fill="#035EA1">10</text><text x="220" y="183">IV</text>
+                  <rect x="256" y="117" width="32" height="48" rx="4" fill="#E8262C"/><text x="272" y="111" fill="#E8262C">6</text><text x="272" y="183">V</text>
+                  <rect x="308" y="45" width="32" height="120" rx="4" fill="#2CB14D"/><text x="324" y="39" fill="#166534">15</text><text x="324" y="183">VI</text>
+                  <rect x="360" y="133" width="32" height="32" rx="4" fill="#E8262C"/><text x="376" y="127" fill="#E8262C">4</text><text x="376" y="183">VII</text>
+                  <rect x="412" y="117" width="32" height="48" rx="4" fill="#E8262C"/><text x="428" y="111" fill="#E8262C">6</text><text x="428" y="183">VIII</text>
+                  <rect x="464" y="93" width="32" height="72" rx="4" fill="#08ABE6"/><text x="480" y="87" fill="#035EA1">9</text><text x="480" y="183">IX</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <div><span class="eyebrow">STRUKTURA POPUSTA IDSS (108.324 KM = 12,6%)</span><h3>Najveća neiskorištena poluga</h3></div>
+              <span class="tag green">+39.500 KM na 8%</span>
+            </div>
+            <div class="table-wrap" style="margin:0">
+              <table>
+                <thead><tr><th>Kategorija (ŠG 26/27)</th><th>Ugovori</th><th>Školarina</th><th>Odstupanje</th></tr></thead>
+                <tbody>
+                  <tr><td>Puna domaća cijena</td><td>53</td><td>546.020 KM</td><td>−1.330 KM</td></tr>
+                  <tr><td>Popust braća/sestre (10/15%)</td><td>6</td><td>53.577 KM</td><td>5.953 KM</td></tr>
+                  <tr><td><strong>Pojedinačni popusti (3 ugovora po 3k!)</strong></td><td><strong>18</strong></td><td>138.409 KM</td><td><strong>52.151 KM</strong></td></tr>
+                  <tr><td><strong>Ugovori bez školarine</strong></td><td><strong>5</strong></td><td>0 KM</td><td><strong>53.820 KM</strong></td></tr>
+                  <tr><td>Tarifa za strana lica</td><td>1</td><td>11.970 KM</td><td>−2.270 KM</td></tr>
+                  <tr><td><strong>UKUPNO</strong></td><td><strong>83</strong></td><td><strong>749.976 KM</strong></td><td><strong>108.324 KM</strong></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" style="border-top:5px solid var(--idss-blue)">
+          <div class="panel-head">
+            <div><span class="eyebrow">INTERAKTIVNI FINANSIJSKI MODELATOR (PRILOG B FORMULE)</span><h3>Modeliranje scenarija razvoja 2026/27 – 2031/32.</h3></div>
+            <div class="pill-tabs" style="margin:0">
+              <button class="pill-btn" onclick="applyPreset('statusquo', this)">Status quo</button>
+              <button class="pill-btn" onclick="applyPreset('konz', this)">Konzervativni</button>
+              <button class="pill-btn active" onclick="applyPreset('bazni', this)">Bazni (Preporučeni)</button>
+              <button class="pill-btn" onclick="applyPreset('rastuci', this)">Rastući</button>
+            </div>
+          </div>
+
+          <div class="controls-grid">
+            <div class="ctrl"><label><span>Upis IDSS 2031/32:</span><b id="valIdss">102</b></label><input type="range" id="slIdss" min="75" max="125" value="102" oninput="runModelCustom()"></div>
+            <div class="ctrl"><label><span>Djeca IMH 2031/32:</span><b id="valImh">95</b></label><input type="range" id="slImh" min="80" max="135" value="95" oninput="runModelCustom()"></div>
+            <div class="ctrl"><label><span>Godišnja indeksacija cijena (%):</span><b id="valPrice">3.0%</b></label><input type="range" id="slPrice" min="0" max="5" step="0.5" value="3.0" oninput="runModelCustom()"></div>
+            <div class="ctrl"><label><span>Smanjenje popusta (p.p. do 2032.):</span><b id="valDisc">4.5 p.p.</b></label><input type="range" id="slDisc" min="0" max="8" step="0.5" value="4.5" oninput="runModelCustom()"></div>
+            <div class="ctrl"><label><span>Rast troškova rada (%/god.):</span><b id="valWage">3.5%</b></label><input type="range" id="slWage" min="1.5" max="6" step="0.5" value="3.5" oninput="runModelCustom()"></div>
+            <div class="ctrl"><label><span>Nove linije neto doprinos 2031/32:</span><b id="valNew">80.000 KM</b></label><input type="range" id="slNew" min="0" max="150000" step="5000" value="80000" oninput="runModelCustom()"></div>
+          </div>
+
+          <div class="grid-2">
+            <div><div class="svg-wrap" id="modelChartWrap"></div></div>
+            <div class="table-wrap" style="margin:0" id="modelTableWrap"></div>
+          </div>
+        </div>
+
+        <!-- SEKCIJA 6: SWOT & MATRICA NOVIH LINIJA -->
+        <h2 class="sec-title" id="sec6">6. SWOT Analiza &amp; Matrica prioriteta novih poslovnih linija</h2>
+        <div class="grid-2">
+          <div class="panel">
+            <h3>🧭 Strateška SWOT matrica (Integrisano stanje 2026.)</h3>
+            <div class="table-wrap" style="margin:0">
+              <table>
+                <thead><tr><th style="background:var(--imh-green)">Snage</th><th style="background:var(--idss-red)">Slabosti</th></tr></thead>
+                <tbody>
+                  <tr><td>Jedinstven profil: njemački kurikulum, trojezičnost, Montessori vertikala (64% prelazak).</td><td>Troškovi rada 79% prihoda; IDSS strukturni manjak (−121k KM) i 3 razreda ≤6 učenika.</td></tr>
+                  <tr><td>IMH popunjenost 94,7% (90/95); sufinansiranje KS čini cijenu konkurentnom.</td><td>Popusti 12,6% (108.324 KM); negativan kapital (−37.328 KM); tanka gotovina (~31.8k).</td></tr>
+                  <tr><td>Povlašten zakup Općine Centar (5 KM/m² do 2033.) u centru Sarajeva; ISO 9001.</td><td>Neusaglašena salda, javne obaveze u kašnjenju i neravnoteža bilansa (−812,54 KM).</td></tr>
+                </tbody>
+                <thead><tr><th style="background:var(--idss-blue)">Prilike</th><th style="background:var(--imh-brown)">Prijetnje</th></tr></thead>
+                <tbody>
+                  <tr><td>Smanjenje popusta (na ≤8%) + strana tarifa (+2.500 KM/uč.) + viši razredi V–VIII.</td><td>Porezno-pravni rizik faktura 100k (MF Banka), ugovori o djelu i lična upotreba leasing vozila.</td></tr>
+                  <tr><td>Ljetna škola, Akademija jezika, Montessori edukacijski centar (+80.000 KM do 2032.).</td><td>Nedostatak pisane saglasnosti Općine za Buka 13 (IDSS) i Čl. 9.3 lično izvršenje osnivača.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <div><span class="eyebrow">NOVA PRIHODOVNA POLUGA</span><h3>Matrica prioriteta novih linija (2027–2032.)</h3></div>
+              <span class="tag green">+15k → +80k KM/god.</span>
+            </div>
+            <div class="svg-wrap">
+              <svg viewBox="0 0 540 245" xmlns="http://www.w3.org/2000/svg">
+                <line x1="55" y1="205" x2="515" y2="205" stroke="#94a3b8" stroke-width="1.5"/>
+                <line x1="55" y1="20" x2="55" y2="205" stroke="#94a3b8" stroke-width="1.5"/>
+                <line x1="55" y1="112" x2="515" y2="112" stroke="#cbd5e1" stroke-dasharray="4 4"/>
+                <line x1="285" y1="20" x2="285" y2="205" stroke="#cbd5e1" stroke-dasharray="4 4"/>
+                <text x="510" y="34" text-anchor="end" font-size="10.5" font-weight="800" fill="#E8262C">PRIORITETNA ZONA</text>
+                <text x="285" y="232" text-anchor="middle" font-size="11" fill="#475569">Izvodljivost (kapacitet, investicija, nizak rizik) →</text>
+                <text x="16" y="115" text-anchor="middle" font-size="11" fill="#475569" transform="rotate(-90 16 115)">Potencijal →</text>
+
+                <circle cx="445" cy="52" r="22" fill="#FFCB29" fill-opacity=".85" stroke="#9F633F" stroke-width="2"/>
+                <text x="445" y="86" text-anchor="middle" font-size="10.5" font-weight="700">Ljetna škola (2027)</text>
+
+                <circle cx="365" cy="76" r="19" fill="#035EA1" fill-opacity=".82" stroke="#000"/>
+                <text x="365" y="106" text-anchor="middle" font-size="10" font-weight="700">Akademija jezika</text>
+
+                <circle cx="285" cy="95" r="17" fill="#2CB14D" fill-opacity=".82" stroke="#166534"/>
+                <text x="285" y="124" text-anchor="middle" font-size="10" font-weight="700">Montessori centar</text>
+
+                <circle cx="320" cy="138" r="15" fill="#08ABE6" fill-opacity=".82"/>
+                <text x="320" y="164" text-anchor="middle" font-size="10" font-weight="700">STEM program</text>
+
+                <circle cx="240" cy="162" r="13" fill="#D8E155" stroke="#9F633F"/>
+                <text x="240" y="186" text-anchor="middle" font-size="10" font-weight="700">Vikend/praznici</text>
+
+                <circle cx="155" cy="55" r="26" fill="#F2557E" fill-opacity=".82" stroke="#9b1c1c" stroke-width="1.5"/>
+                <text x="155" y="93" text-anchor="middle" font-size="10" font-weight="700">Druga lokacija IMH (~180k)</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- SEKCIJA 7: WORKFLOW & M&A STATUS -->
+        <h2 class="sec-title" id="sec7">7. Akcijski Workflow (Prvih 100 dana) &amp; M&amp;A Data Room Status</h2>
+        <div class="panel">
+          <div class="panel-head">
+            <div><span class="eyebrow">INTERAKTIVNI GANTT &amp; M&amp;A WORKFLOW</span><h3>Faze stabilizacije i zatvaranja otvorenih pitanja</h3></div>
+            <span class="tag">Kliknite fazu za detalje</span>
+          </div>
+          <div class="svg-wrap">
+            <svg viewBox="0 0 1100 220" xmlns="http://www.w3.org/2000/svg">
+              <rect x="10" y="10" width="1080" height="30" rx="6" fill="#0b253c"/>
+              <text x="145" y="30" text-anchor="middle" fill="#FFCB29" font-size="11.5" font-weight="800">FAZA I: DANI 1–30 (Činjenice &amp; Hitno)</text>
+              <text x="415" y="30" text-anchor="middle" fill="#9edcf5" font-size="11.5" font-weight="800">FAZA II: DANI 31–60 (Odluke)</text>
+              <text x="685" y="30" text-anchor="middle" fill="#AAD26C" font-size="11.5" font-weight="800">FAZA III: DANI 61–100 (Pokretanje)</text>
+              <text x="955" y="30" text-anchor="middle" fill="#fff" font-size="11.5" font-weight="800">MJESECI 4–12 (Izvršenje)</text>
+
+              <g class="node-btn" onclick="selectFlow('f1')">
+                <rect x="15" y="55" width="260" height="40" rx="8" fill="#E8262C"/>
+                <text x="145" y="79" text-anchor="middle" fill="#fff" font-size="11.5" font-weight="800">1. KUIP nalog + Bilans −812 KM + VDR</text>
+              </g>
+              <g class="node-btn" onclick="selectFlow('f2')">
+                <rect x="285" y="85" width="260" height="40" rx="8" fill="#FFCB29"/>
+                <text x="415" y="109" text-anchor="middle" fill="#000" font-size="11.5" font-weight="800">2. Porezni plan + Prebijanje 93k + Cjenovnik</text>
+              </g>
+              <g class="node-btn" onclick="selectFlow('f3')">
+                <rect x="555" y="115" width="260" height="40" rx="8" fill="#2CB14D"/>
+                <text x="685" y="139" text-anchor="middle" fill="#fff" font-size="11.5" font-weight="800">3. Ugovor podjele troškova + Kampanja upisa</text>
+              </g>
+              <g class="node-btn" onclick="selectFlow('f4')">
+                <rect x="825" y="145" width="260" height="40" rx="8" fill="#035EA1"/>
+                <text x="955" y="169" text-anchor="middle" fill="#fff" font-size="11.5" font-weight="800">4. Refinansiranje + Revizija + Mjesečno zatv.</text>
+              </g>
+            </svg>
+          </div>
+          <div id="flowDrawer" class="detail-drawer">
+            <strong>Aktuelni M&amp;A Status (23.11.2026.):</strong> Google Disk repozitorij (<code>suad.slipicevic@gmail.com</code>) sadrži <strong>88 dokumenata</strong> + <strong>25 tačaka Izjašnjenja Uprave</strong> (20.11.2026.). Preostaje dostava preostale arhive/računovodstva (Grupe 1–3) i potpis Pristupnice (Prilog 1 NDA) od samog Kupca prije direktnog pristupa. Kliknite traku iznad za detalje faze.
+          </div>
+        </div>
+
+        <!-- SEKCIJA 8: RIZICI & TOPLOTNA MAPA -->
+        <h2 class="sec-title" id="sec8">8. Registar rizika (R1–R16) &amp; Interaktivna 5×5 Toplotna Mapa</h2>
+        <div class="grid-2">
+          <div class="panel">
+            <h3>🔥 Klikabilna 5×5 Toplotna mapa rizika (Uticaj × Vjerovatnoća)</h3>
+            <p style="font-size:12px;color:var(--muted)">Kliknite polje na mapi za prikaz pripadajućih rizika i mjera ublažavanja.</p>
+            <div class="heat-grid">
+              <div style="font-weight:800;display:flex;align-items:center">Kritičan (5)</div>
+              <div class="heat-cell" style="background:#dcfce7"></div>
+              <div class="heat-cell" style="background:#fef9c3"></div>
+              <div class="heat-cell" style="background:#fecaca" onclick="filterRisksBy('R1')">R1 (Prostor / Čl. 9.3)</div>
+              <div class="heat-cell" style="background:#fca5a5" onclick="filterRisksBy('R3')">R3 (Međukomp. 100k)</div>
+              <div class="heat-cell" style="background:#f87171;color:#fff" onclick="filterRisksBy('R16')">KUIP / NDA</div>
+
+              <div style="font-weight:800;display:flex;align-items:center">Veliki (4)</div>
+              <div class="heat-cell" style="background:#dcfce7"></div>
+              <div class="heat-cell" style="background:#fef08a" onclick="filterRisksBy('R12')">R12</div>
+              <div class="heat-cell" style="background:#fde047" onclick="filterRisksBy('R6,R9,R11')">R6 · R9 · R11</div>
+              <div class="heat-cell" style="background:#fca5a5" onclick="filterRisksBy('R2,R4,R5,R14,R15')">R2 · R4 · R5 · R14 · R15</div>
+              <div class="heat-cell" style="background:#f87171;color:#fff" onclick="filterRisksBy('R7')">R7 (Rad 79%)</div>
+
+              <div style="font-weight:800;display:flex;align-items:center">Umjeren (3)</div>
+              <div class="heat-cell" style="background:#dcfce7"></div>
+              <div class="heat-cell" style="background:#bbf7d0" onclick="filterRisksBy('R10')">R10</div>
+              <div class="heat-cell" style="background:#fef08a" onclick="filterRisksBy('R8')">R8 (Djelo)</div>
+              <div class="heat-cell" style="background:#fde047" onclick="filterRisksBy('R13')">R13 (Leasing)</div>
+              <div class="heat-cell" style="background:#fecaca"></div>
+
+              <div></div>
+              <div style="text-align:center;font-weight:700">Rijetko (1)</div>
+              <div style="text-align:center;font-weight:700">Malo vj. (2)</div>
+              <div style="text-align:center;font-weight:700">Moguće (3)</div>
+              <div style="text-align:center;font-weight:700">Vjerov. (4)</div>
+              <div style="text-align:center;font-weight:700">Skoro izv. (5)</div>
+            </div>
+            <div style="margin-top:10px"><button class="pill-btn active" onclick="filterRisksBy('ALL')">Prikaži sve rizike (R1–R16)</button></div>
+          </div>
+
+          <div class="panel">
+            <h3>🚨 Detalji selektovanih rizika</h3>
+            <div class="table-wrap" style="margin:0;max-height:360px">
+              <table>
+                <thead><tr><th>ID</th><th>Rizik</th><th>Mjera ublažavanja &amp; Rok</th></tr></thead>
+                <tbody id="riskTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- SEKCIJA 9: KPI & PRILOZI -->
+        <h2 class="sec-title" id="sec9">9. Sistem ključnih pokazatelja (KPI), Organizacija &amp; Prilozi</h2>
+        <div class="grid-2">
+          <div class="panel">
+            <h3>🎯 Sistem ključnih pokazatelja (KPI Cockpit)</h3>
+            <div class="table-wrap" style="margin:0">
+              <table>
+                <thead><tr><th>Područje</th><th>Polazno</th><th>Cilj 2028/29</th><th>Prag za akciju</th></tr></thead>
+                <tbody>
+                  <tr><td>Upis IDSS / IMH</td><td>83 / 90</td><td>92 / 94</td><td>Pad &gt;3 od plana</td></tr>
+                  <tr><td>Prelazak IMH → IDSS</td><td>64%</td><td>≥80%</td><td>&lt;60%</td></tr>
+                  <tr><td>Odstupanje cijena (popusti)</td><td>12,6%</td><td>≤8%</td><td>&gt;9%</td></tr>
+                  <tr><td>EBITDA marža grupe</td><td>0,6%</td><td>≥9%</td><td>Odstupanje &gt;2 p.p.</td></tr>
+                  <tr><td>Udio troškova rada</td><td>79,0%</td><td>≤72%</td><td>&gt;75%</td></tr>
+                  <tr><td>Gotovina u danima troška</td><td>~8 dana</td><td>≥30 dana</td><td>&lt;15 dana</td></tr>
+                  <tr><td>Javne obaveze u kašnjenju</td><td>Postoje</td><td>0</td><td>Bilo koji iznos</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>📑 Prilog: Status M&amp;A dokumentacije &amp; Napomene usaglašavanja</h3>
+            <ul style="margin:0;padding-left:18px;font-size:13px;display:grid;gap:6px">
+              <li><strong>VDR na Google Disku (88 fajlova):</strong> Sadrži kompletne statuse, ugovor Općine Centar 2023–2033 (s Zaključkom 08.08.2023. na str. 11), katastarske oznake (<code>1756/1</code>, <code>1756/2</code>, <code>1757/1</code> K.O. Sarajevo IV / XLVI), KDP kartone oba subjekta, FIA izvještaje 2023–25, bruto bilanse do 31.10.2026., rješenja Ministarstva KS (2011–14.10.2026.), ugovore MF Banke i Sparkasse Leasinga.</li>
+              <li><strong>Izjašnjenje Uprave (20.11.2026.):</strong> Pokriva 25 tačaka (uklj. <code>4.3.c</code>, <code>5.3</code>, PDV status, nepostojanje NO, sindikata, vijeća, sudskih sporova).</li>
+              <li><strong>U pripremi za dostavu:</strong> <code>3.3</code>, <code>5.14</code>, <code>6.5</code>, porezne kartice PU FBiH (<code>4.6.b</code>), popis osnovnih sredstava (<code>3.4</code>), Registar zaloga (<code>3.4.c</code>), svježi izvod IDSS (<code>1.1.d</code>), ugovor o istupanju 2019. (<code>2.1</code>), pravilnici o radu (<code>5.6</code>), top ugovori (<code>6.1–6.2</code>) i upotrebne/sanitarne dozvole (<code>8.3</code>).</li>
+              <li><strong>Napomene revizije:</strong> Zadržane izvorne razlike od 1 KM u 31.08.2026. zbirima i cjenovnom rasponu radi transparentnosti do konačne ispravke bruto bilansa IDSS (−812,54 KM).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer">
+          <span>IDSS + IMH · <a href="https://mulalicd.github.io/https-github.com-mulalicd-IZVJESTAJ-IMH-IDSS/" target="_blank" rel="noopener" style="color:inherit">Web Repo</a> · <a href="https://drive.google.com/drive/folders/1VVawONLFPnJQt9psnUM6Y-aNj3YeMHgI?usp=sharing" target="_blank" rel="noopener" style="color:inherit">VDR Google Disk</a></span>
+          <span>Strogo povjerljivo – Uprava i Osnivač</span>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+// --- PIN ZASTITA (6 CIFARA, INJEKTIVNI HASH ZA DUZINU 6) ---
+const TARGET_HASH = 478196571;
+const SESSION_KEY = "IDSS_IMH_UNLOCKED_2026";
+let enteredPin = "";
+let failCount = 0;
+let lockUntil = 0;
+
+function pinHash(str){
+  let h = 0;
+  for(let i=0; i<str.length; i++){
+    h = (h * 31 + str.charCodeAt(i)) % 1000000007;
+  }
+  return h;
+}
+
+function updatePinUI(){
+  const dots = document.querySelectorAll('#pinDots .pin-dot');
+  dots.forEach((d, idx) => {
+    const filled = idx < enteredPin.length;
+    d.textContent = filled ? "•" : "";
+    d.classList.toggle('filled', filled);
+    d.classList.toggle('active', idx === enteredPin.length && enteredPin.length < 6);
+  });
+}
+
+function focusHiddenPin(){
+  const inp = document.getElementById('hiddenPinInput');
+  if(inp) inp.focus();
+}
+
+function pressDigit(d){
+  if(Date.now() < lockUntil){
+    const sec = Math.ceil((lockUntil - Date.now()) / 1000);
+    document.getElementById('pinError').textContent = `Previše pogrešnih pokušaja. Sačekajte ${sec} s.`;
+    return;
+  }
+  if(enteredPin.length >= 6) return;
+  enteredPin += d;
+  document.getElementById('pinError').textContent = "";
+  updatePinUI();
+  if(enteredPin.length === 6) verifyPin();
+}
+
+function backDigit(){
+  if(enteredPin.length > 0){
+    enteredPin = enteredPin.slice(0, -1);
+    updatePinUI();
+  }
+}
+
+function clearPin(){
+  enteredPin = "";
+  document.getElementById('pinError').textContent = "";
+  updatePinUI();
+}
+
+function verifyPin(){
+  if(enteredPin.length === 6 && pinHash(enteredPin) === TARGET_HASH){
+    failCount = 0;
+    sessionStorage.setItem(SESSION_KEY, "1");
+    unlockApp();
+  } else {
+    failCount++;
+    const card = document.getElementById('pinCard');
+    card.classList.remove('shake');
+    void card.offsetWidth;
+    card.classList.add('shake');
+    enteredPin = "";
+    updatePinUI();
+    if(failCount >= 5){
+      lockUntil = Date.now() + 30000;
+      document.getElementById('pinError').textContent = "5 pogrešnih pokušaja. Zaključano na 30 sekundi.";
+    } else {
+      document.getElementById('pinError').textContent = `Pogrešan PIN. Preostalo pokušaja: ${5 - failCount}`;
+    }
+  }
+}
+
+function unlockApp(){
+  document.getElementById('pinOverlay').style.display = 'none';
+  document.getElementById('appShell').style.display = 'block';
+  window.dispatchEvent(new Event('scroll'));
+}
+
+function lockApp(){
+  sessionStorage.removeItem(SESSION_KEY);
+  enteredPin = "";
+  updatePinUI();
+  document.getElementById('appShell').style.display = 'none';
+  document.getElementById('pinOverlay').style.display = 'flex';
+  focusHiddenPin();
+}
+
+document.addEventListener('keydown', (e) => {
+  if(document.getElementById('pinOverlay').style.display === 'none') return;
+  if(e.key >= '0' && e.key <= '9'){ e.preventDefault(); pressDigit(e.key); }
+  else if(e.key === 'Backspace'){ e.preventDefault(); backDigit(); }
+  else if(e.key === 'Escape'){ e.preventDefault(); clearPin(); }
+});
+
+document.getElementById('hiddenPinInput').addEventListener('input', (e) => {
+  const digits = e.target.value.replace(/\D/g, '').slice(0, 6);
+  e.target.value = "";
+  for(const ch of digits) pressDigit(ch);
+});
+
+if(sessionStorage.getItem(SESSION_KEY) === "1"){ unlockApp(); }
+
+// --- PODACI I INTERAKTIVNOST ---
+const MIND_DATA = {
+  center: "<strong>Grupa IDSS &amp; IMH:</strong> Konsolidovani prihod 2025: 1.701.240 KM (+25,3% od 2022.), EBITDA 2025: 143.310 KM (8,4%), ŠG 2026/27 bazno 9.334 KM (0,6%). 100% osnivač oba pravna lica: Lamia Kacila.",
+  vlasnistvo: "<strong>1. Vlasništvo, Uprava &amp; KUIP:</strong> IMH osnovan 2012. (Lamia 50% + Anja Imberg 50%); od 09.03.2015. Lamia 100% (Haški Apostille). IDSS osnovao IMH 2016., od 05.07.2019. Lamia 100%. Zapisnik UO 04.11.2026.: po nalogu KUIP KS (30.09.2026., rok 22.11.2026.) razriješen Davor Mulalić u IMH, imenovan v.d. Anes Memić, konkurs do 16.11.2026.",
+  prostor: "<strong>2. Prostor, Zakup &amp; Katastar:</strong> Kompleks Buka 11 i 13 (1.287,40 m²), k.č. 1756/1, 1756/2 (IMH) i k.č. 1757/1 (IDSS), K.O. Sarajevo IV (stari premjer K.O. Sarajevo XLVI). Ugovor OPU-IP-850/2023 (27.09.2023.) do 31.08.2033. po 5,00 KM/m² (7.531,29 KM/mj s PDV). Oprez: Čl. 6.5 zabranjuje podzakup (IDSS nema pisanu saglasnost Općine), Čl. 9.3 veže ličnu imovinu Lamie Kacile!",
+  komercijala: "<strong>3. Vertikala, Upis &amp; Popusti:</strong> IMH radi na 94,7% (90/95). IDSS ima 83/135 (61,5%), 64% prvačića dolazi iz IMH-a. Odstupanje od cjenovnika 108.324 KM (12,6%, 5 besplatnih ugovora, 1 strana tarifa). Smanjenje popusta na 8% donosi +39.500 KM, a +15 učenika zatvara strukturni manjak (−120.677 KM).",
+  finansije: "<strong>4. Krediti, Bilans &amp; Porezi:</strong> Eksterni dug 31.10.2026. = 218.575 KM bez lizinga (IMH MF 100k, prekoračenje 85.290 KM; IDSS MF 8.447 + 5.554 + nepoznati zajam 23.700 KM na 4221-110). Kredit 100k preusmjeren preko faktura IDSS→IMH (0211/6217, razlika 12.200 KM). Javne obaveze: sporazumi 46.043 KM, plate IDSS 49.257 KM, doprinosi IMH 62.050 KM. Bruto bilans IDSS 31.10. van ravnoteže −812,54 KM.",
+  porsche: "<strong>5. Osnivač, Pozajmica &amp; Leasing:</strong> Porsche Cayenne (100.980 EUR neto) na Sparkasse Leasingu br. 12546/26 (finansirano 53.182 EUR, 60×1.028 EUR, Change of Control klauzula + lična mjenica Lamie). Učešće 93.484,84 KM (staro vozilo Lamie) formalizano pozajmicom s datumom 14.07.2026., potpisano 07.11.2026. Istovremeno, osnivač duguje firmama 184.692 KM (neto 91.207 KM).",
+  ma: "<strong>6. M&amp;A Data Room &amp; Aneks 1:</strong> Na Google Disku je 88 dokumenata (50 IMH + 38 IDSS) podijeljeno advokatu Suadu Slipičeviću (suad.slipicevic@gmail.com). Potpisano Izjašnjenje Uprave (25 tačaka). Prilog 1 (Pristupnica kupca) čeka prije direktnog pristupa kupca. Spremno 13 forenzičkih pitanja (Aneks 1)."
+};
+
+const FLOW_DATA = {
+  f1: "<strong>FAZA I (Dani 1–30):</strong> (1) Zatvoriti nalog KUIP KS i upis novog direktora IMH; (2) Ispraviti bruto bilans IDSS (−812,54 KM), zatvoriti prelazna konta (57.912 KM) i identifikovati zajam 23.700 KM; (3) Nezavisni pregled faktura 100.000 KM; (4) Dostaviti preostale DD dokumente (Grupe 1–3) i potpisati izjavu o prebijanju 93.485 KM.",
+  f2: "<strong>FAZA II (Dani 31–60):</strong> (1) Plan izmirenja javnih obaveza i pribavljanje potvrda Porezne uprave; (2) Pisano priznanje i plan otplate preostalih 91.207 KM od osnivača; (3) Usvajanje nove politike cijena i popusta (limit 3% stipendija, strana tarifa); (4) Pribaviti saglasnost Općine Centar za Buka 13 (IDSS).",
+  f3: "<strong>FAZA III (Dani 61–100):</strong> (1) Potpisivanje trajnog Ugovora o podjeli troškova IMH–IDSS (uklj. trošak uprave); (2) Budžet 2027/28 i mjesečni KPI cockpit; (3) Ciljana kampanja upisa za V–VIII razred i prelazak ≥80% iz IMH-a; (4) Usklađivanje ugovora o djelu (dopunski rad).",
+  f4: "<strong>MJESECI 4–12:</strong> (1) Refinansiranje skupog duga (okvir ~250.000 KM); (2) Prenos leasinga Porschea na osnivača uz saglasnost Sparkasse-a; (3) Mjesečno zatvaranje knjiga i IOS do 10. u mjesecu; (4) Nezavisna revizija godišnjih izvještaja i pokretanje ljetne škole / akademije jezika."
+};
+
+const RISKS = [
+  { id:"R1", title:"Ugovorni položaj prostora (Buka 13 IDSS & Čl. 9.3)", action:"Saglasnost Općine Centar za IDSS; uredno plaćanje do 15.; oslobađanje Čl. 9.3 kod prodaje (60 dana)" },
+  { id:"R2", title:"Javne obaveze & zatezne kamate (46k sporazumi, 62k doprinosi)", action:"Porezne kartice PU FBiH; plan izmirenja iz okvira 250k; nulta zatezna kamata (12 mj.)" },
+  { id:"R3", title:"Međukompanijske transakcije & Kredit 100.000 KM MF Banke", action:"Nezavisna pravno-poreska revizija; dokazi radova; ugovor o podjeli troškova (45 dana)" },
+  { id:"R4", title:"Kvalitet aktive (184.692 KM osnivač + 63.317 KM nenaplaćeno)", action:"Prebijanje 93.485 KM; priznanje duga za 91.207 KM; naplata/stipendije za kupce (90 dana)" },
+  { id:"R5", title:"Likvidnost & Depoziti roditelja (31.8k gotovina vs 50.4k depoziti)", action:"Sedmični plan tokova; minimalna rezerva 111.000 KM; refinansiranje (Stalno)" },
+  { id:"R6", title:"Pad i oscilacije upisa IDSS (79→94→68→83; 3 razreda ≤6)", action:"Lijevak ≥80% iz IMH-a; kampanja za V–VIII razred; analiza ispisa (Stalno)" },
+  { id:"R7", title:"Rast troškova rada (79% prihoda; +53% kadra 2023–25)", action:"Planiranje kadra prema popunjenosti razreda; ciljni koridor ≤72% → 65–70% (Godišnje)" },
+  { id:"R8", title:"Ugovori o djelu (6 saradnika / 93.117 KM u 01–10/2026)", action:"Pravno mišljenje; prelazak na dopunski rad uz saglasnost matičnih škola (6 mj.)" },
+  { id:"R9", title:"Zavisnost od ključnih osoba & Menadžerski ugovori", action:"Plan nasljeđivanja; dokumentovani procesi; tranzicija direktora/osnivača (12 mj.)" },
+  { id:"R10", title:"Zaštita podataka (Zakon 12/25) & IT kontrola pristupa", action:"Politika zaštite podataka o djeci; kontrola VDR pristupa preko Pristupnice (6 mj.)" },
+  { id:"R11", title:"Promjena vlasništva (Change of Control – Sparkasse & MF Banka)", action:"Saglasnosti banaka/leasinga; oslobađanje ličnih mjenica osnivača (Prije transakcije)" },
+  { id:"R12", title:"Reputacija (mali razredi, inspekcije)", action:"Transparentna komunikacija s roditeljima i kadrom (Stalno)" },
+  { id:"R13", title:"Privatna upotreba leasing vozila (Porsche 100.980 EUR)", action:"Prenos leasinga na osnivača / carve-out ili obračun koristi u naravi (60 dana)" },
+  { id:"R14", title:"Antedatirani ugovor o pozajmici (14.07. vs potpis 07.11.2026.)", action:"Zamjenski ugovor/aneks s stvarnim datumom potpisa + izjava o prebijanju (30 dana)" },
+  { id:"R15", title:"Integritet knjiga (IDSS bilans −812,54 KM; zajam 23.700 KM)", action:"Ispravljen bruto bilans; zatvorena prelazna konta 57.912 KM; ugovor 4221-110 (15 dana)" },
+  { id:"R16", title:"[M&A HITNO] Nalog KUIP KS & Supotpis IMH NDA", action:"Prijava sudu i dopis KUIP-u za novog direktora IMH; potvrda Lamie Kacile na IMH NDA (Odmah)" }
+];
+
+function selectMindNode(k){ document.getElementById('mindDrawer').innerHTML = MIND_DATA[k] || ''; }
+function selectFlow(k){ document.getElementById('flowDrawer').innerHTML = FLOW_DATA[k] || ''; }
+
+function showHistTab(tab, btn){
+  if(btn){ btn.parentElement.querySelectorAll('.pill-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+  const wrap = document.getElementById('histTableWrap');
+  if(tab === 'hist2225'){
+    wrap.innerHTML = `<table><thead><tr><th>Pokazatelj (KM)</th><th>2022.</th><th>2023.</th><th>2024.</th><th>2025.</th></tr></thead><tbody>
+      <tr><td>Prihod IDSS</td><td>633.571</td><td>672.553</td><td>784.147</td><td>899.881</td></tr>
+      <tr><td>Prihod IMH</td><td>724.354</td><td>843.751</td><td>812.874</td><td>900.571</td></tr>
+      <tr><td><strong>Konsolidovani prihod grupe</strong></td><td><strong>1.357.925</strong></td><td><strong>1.516.304</strong></td><td><strong>1.597.021</strong></td><td><strong>1.701.240</strong></td></tr>
+      <tr><td>Troškovi rada grupe</td><td>713.448</td><td>842.369</td><td>1.018.359</td><td>1.223.623</td></tr>
+      <tr><td>Troškovi rada / prihod</td><td>52,5%</td><td>55,6%</td><td>63,8%</td><td>71,9%</td></tr>
+      <tr><td>EBITDA grupe</td><td>—</td><td>337.306 (22,2%)</td><td>192.051 (12,0%)</td><td>143.310 (8,4%)</td></tr>
+      <tr><td><strong>Neto rezultat grupe</strong></td><td><strong>−11.549</strong></td><td><strong>255.225</strong></td><td><strong>158.308</strong></td><td><strong>54.314</strong></td></tr>
+      <tr><td>Kapital grupe na kraju god.</td><td>−505.150</td><td>−249.925</td><td>−91.618</td><td><strong>−37.328</strong></td></tr>
+    </tbody></table>`;
+  } else if(tab === 'presjek26'){
+    wrap.innerHTML = `<table><thead><tr><th>Pozicija 2026. (KM)</th><th>Do 31.05.2026.</th><th>Do 31.08.2026.</th><th>Do 31.10.2026.</th></tr></thead><tbody>
+      <tr><td>Prihodi grupe (po knjigama)</td><td>901.948</td><td>1.429.056</td><td>1.703.679</td></tr>
+      <tr><td>Rashodi grupe (po knjigama)</td><td>766.929</td><td>1.253.192</td><td>1.526.189</td></tr>
+      <tr><td>Rezultat po knjigama</td><td>135.019</td><td>175.864</td><td>177.490</td></tr>
+      <tr><td>Eliminacija fakture IDSS → IMH (MF kredit)</td><td>0</td><td>−100.000</td><td>−100.000</td></tr>
+      <tr><td>Neusaglašene fakture & neproknjižen zakup</td><td>—</td><td>—</td><td>−6.297 / −15.063</td></tr>
+      <tr><td><strong>Normalizovani rezultat grupe</strong></td><td><strong>135.019</strong></td><td><strong>75.864</strong></td><td><strong>71.193 (56.130 p.a.)</strong></td></tr>
+    </tbody></table>`;
+  } else {
+    wrap.innerHTML = `<table><thead><tr><th>Godina</th><th>Tok IDSS ↔ IMH</th><th>Iznos (KM)</th><th>Finansijski efekat</th></tr></thead><tbody>
+      <tr><td>2022.</td><td>Zakup koji IDSS plaća IMH-u</td><td>264.906</td><td>Gubitak IDSS (−194.595), dobit IMH (+183.046)</td></tr>
+      <tr><td>2023–2024.</td><td>Zakup IDSS minimalan + zajmovi</td><td>8.785 / 6.833</td><td>Dobit IDSS precijenjena; 10.560 KM kamata u 2024.</td></tr>
+      <tr><td>2025.</td><td>Naknada za zajedničke troškove (84 fakt.)</td><td>99.212</td><td>IDSS u malom gubitku (−9.501); ključevi 28–50%</td></tr>
+      <tr><td>2026.</td><td>Fakture IDSS → IMH (kredit MF Banke)</td><td>100.000</td><td>IMH na 0211, IDSS na 6217; razlika 12.200 KM</td></tr>
+      <tr><td>2026.</td><td>Zajednički troškovi (01–10/2026)</td><td>132.084 vs 125.787</td><td>Razlika u knjiženju 6.297 KM (plaćeno 136.280 KM)</td></tr>
+      <tr><td>Stalno</td><td>Avans IDSS-a IMH-u za knjige (od 2023.)</td><td>32.150</td><td>Neusaglašeno između ustanova</td></tr>
+    </tbody></table>`;
+  }
+}
+
+function calcBalanceSim(){
+  const offset = document.getElementById('simOffset').checked;
+  const carve = document.getElementById('simCarve').checked;
+  const cap = document.getElementById('simCap').checked;
+  const coll = document.getElementById('simCollect91').checked;
+
+  let extDebt = 218575;
+  let leaseDebt = carve ? 0 : 104015;
+  let founderLoan = offset ? 0 : 93485;
+  let founderReceiv = offset ? (coll ? 0 : 91207) : 184692;
+  let monthlyDebt = 4661 + (carve ? 0 : 2010) + (offset ? 0 : 7790);
+  let cash = 31800 + (cap ? (250000 - 121043) : 0) + (coll && offset ? 91207 : 0);
+
+  const totalOblig = extDebt + leaseDebt + founderLoan;
+  const netDebt = totalOblig - cash;
+
+  document.getElementById('balanceSimOut').innerHTML = `
+    <div><strong>Rezultat simulacije (na bazi 31.10.2026.):</strong></div>
+    <ul style="margin:6px 0;padding-left:18px">
+      <li>Ukupni dug (eksterni + leasing + pozajmica osnivača): <strong>${totalOblig.toLocaleString('bs-BA')} KM</strong></li>
+      <li>Stvarna raspoloživa gotovina / likvidnosna rezerva: <strong>~${cash.toLocaleString('bs-BA')} KM</strong></li>
+      <li>Neto pozicija prema osnivaču Lamiji Kacili: <strong>${founderReceiv > 0 ? 'Osnivač duguje grupi ' + founderReceiv.toLocaleString('bs-BA') + ' KM' : (founderLoan > 0 ? 'Neto potraživanje od osnivača 91.207 KM (uz otvoren dug za pozajmicu 93.485 KM)' : 'Potpuno zatvoreno i prebijeno (0 KM)')}</strong></li>
+      <li>Mjesečni servis ugovornog duga (MF + Leasing + Pozajmica): <strong>~${monthlyDebt.toLocaleString('bs-BA')} KM / mj.</strong></li>
+    </ul>
+    <div style="font-weight:800;color:${netDebt>250000?'var(--idss-red)':'var(--idss-blue)'};border-top:1px solid var(--line);padding-top:6px">
+      Simulirani Neto dug grupe: ~${netDebt.toLocaleString('bs-BA')} KM
+    </div>`;
+}
+
+const PRESETS = {
+  statusquo: { idss:83, imh:90, price:2.0, disc:0, wage:4.5, news:0, exact:[
+    {y:'2026/27', r:1686076, w:1332742, o:344000, e:9334, n:-42666, u:'83/90'},
+    {y:'2027/28', r:1719798, w:1392715, o:354320, e:-27237, n:-71237, u:'83/90'},
+    {y:'2028/29', r:1754193, w:1455387, o:364950, e:-66143, n:-104143, u:'83/90'},
+    {y:'2029/30', r:1789277, w:1520880, o:375898, e:-107500, n:-141500, u:'83/90'},
+    {y:'2030/31', r:1825063, w:1589319, o:387175, e:-151431, n:-183431, u:'83/90'},
+    {y:'2031/32', r:1861564, w:1660839, o:398790, e:-198065, n:-228065, u:'83/90'}
+  ]},
+  konz: { idss:90, imh:93, price:2.5, disc:3.5, wage:3.5, news:32000, exact:[
+    {y:'2026/27', r:1686076, w:1332742, o:344000, e:9334, n:-42666, u:'83/90'},
+    {y:'2027/28', r:1781828, w:1379388, o:358720, e:43720, n:-280, u:'85/91'},
+    {y:'2028/29', r:1876668, w:1427666, o:373750, e:75253, n:33527, u:'87/92'},
+    {y:'2029/30', r:1951169, w:1477634, o:387898, e:85637, n:46473, u:'88/93'},
+    {y:'2030/31', r:2016131, w:1529352, o:400375, e:86404, n:48964, u:'89/93'},
+    {y:'2031/32', r:2080834, w:1582879, o:413190, e:84765, n:49289, u:'90/93'}
+  ]},
+  bazni: { idss:102, imh:95, price:3.0, disc:4.5, wage:3.5, news:80000, exact:[
+    {y:'2026/27', r:1686076, w:1332742, o:344000, e:9334, n:-42666, u:'83/90'},
+    {y:'2027/28', r:1841368, w:1379388, o:364320, e:97661, n:48295, u:'88/92'},
+    {y:'2028/29', r:1996466, w:1427666, o:383750, e:185050, n:132345, u:'92/94'},
+    {y:'2029/30', r:2128869, w:1513113, o:401498, e:214257, n:162232, u:'96/95'},
+    {y:'2030/31', r:2239238, w:1566072, o:416375, e:256790, n:202311, u:'99/95'},
+    {y:'2031/32', r:2348462, w:1620885, o:431590, e:295987, n:239388, u:'102/95'}
+  ]},
+  rastuci: { idss:115, imh:135, price:3.5, disc:6.0, wage:3.5, news:150000, exact:[
+    {y:'2026/27', r:1686076, w:1332742, o:344000, e:9334, n:-42666, u:'83/90'},
+    {y:'2027/28', r:1889615, w:1379388, o:368720, e:141508, n:87757, u:'90/93'},
+    {y:'2028/29', r:2103581, w:1461945, o:391750, e:249886, n:190697, u:'97/95'},
+    {y:'2029/30', r:2514100, w:1681639, o:511098, e:321363, n:245127, u:'104/115'},
+    {y:'2030/31', r:2865203, w:1843773, o:559575, e:461855, n:373369, u:'110/130'},
+    {y:'2031/32', r:3108298, w:1981942, o:587190, e:539166, n:444750, u:'115/135'}
+  ]}
+};
+
+function applyPreset(key, btn){
+  if(btn){ btn.parentElement.querySelectorAll('.pill-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+  const p = PRESETS[key];
+  document.getElementById('slIdss').value = p.idss;
+  document.getElementById('slImh').value = p.imh;
+  document.getElementById('slPrice').value = p.price;
+  document.getElementById('slDisc').value = p.disc;
+  document.getElementById('slWage').value = p.wage;
+  document.getElementById('slNew').value = p.news;
+  updateSliderLabels();
+  renderModel(p.exact);
+}
+
+function updateSliderLabels(){
+  document.getElementById('valIdss').textContent = document.getElementById('slIdss').value;
+  document.getElementById('valImh').textContent = document.getElementById('slImh').value;
+  document.getElementById('valPrice').textContent = Number(document.getElementById('slPrice').value).toFixed(1) + '%';
+  document.getElementById('valDisc').textContent = Number(document.getElementById('slDisc').value).toFixed(1) + ' p.p.';
+  document.getElementById('valWage').textContent = Number(document.getElementById('slWage').value).toFixed(1) + '%';
+  document.getElementById('valNew').textContent = Number(document.getElementById('slNew').value).toLocaleString('bs-BA') + ' KM';
+}
+
+function runModelCustom(){
+  document.querySelectorAll('#sec5 .pill-tabs .pill-btn').forEach(b=>b.classList.remove('active'));
+  updateSliderLabels();
+  const idssEnd = +document.getElementById('slIdss').value;
+  const imhEnd = +document.getElementById('slImh').value;
+  const pRate = +document.getElementById('slPrice').value / 100;
+  const dGain = +document.getElementById('slDisc').value / 100;
+  const wRate = +document.getElementById('slWage').value / 100;
+  const newEnd = +document.getElementById('slNew').value;
+
+  const years = ['2026/27','2027/28','2028/29','2029/30','2030/31','2031/32'];
+  const rows = [];
+  for(let t=0; t<6; t++){
+    const frac = t / 5;
+    const uIdss = Math.round(83 + (idssEnd - 83) * frac);
+    const uImh = Math.round(90 + (imhEnd - 90) * frac);
+    const pMult = Math.pow(1 + pRate, t);
+    const discBoost = 1 + dGain * frac;
+    const revIdss = uIdss * 9391 * pMult * discBoost + 30000 * pMult;
+    const revImh = uImh * 9740 * pMult;
+    const newNet = newEnd * Math.max(0, (t - 0.5) / 4.5);
+    const r = t===0 ? 1686076 : Math.round(revIdss + revImh + newNet);
+
+    const extraTeachers = Math.floor(Math.max(0, uIdss - 83) / 10);
+    const w = t===0 ? 1332742 : Math.round((1332742 + extraTeachers * 28000) * Math.pow(1 + wRate, t));
+    const o = t===0 ? 344000 : Math.round((344000 + Math.max(0, uIdss - 83)*1200 + (uImh > 100 ? 60000 : 0)) * Math.pow(1.03, t));
+    const e = r - w - o;
+    const interest = Math.max(10000, 30000 - t * 4000);
+    const preTax = e - 22000 - interest;
+    const n = preTax > 0 ? Math.round(preTax * 0.9) : Math.round(preTax);
+    rows.push({ y:years[t], r, w, o, e, n, u:`${uIdss}/${uImh}` });
+  }
+  renderModel(rows);
+}
+
+function renderModel(rows){
+  const maxE = Math.max(350000, ...rows.map(x=>x.e));
+  const minE = Math.min(-220000, ...rows.map(x=>x.e));
+  const range = maxE - minE;
+  const zeroY = 20 + (maxE / range) * 180;
+  const pts = rows.map((x, i) => {
+    const cx = 65 + i * 86;
+    const cy = 20 + ((maxE - x.e) / range) * 180;
+    return { cx, cy, val: x.e, y: x.y };
+  });
+  const poly = pts.map(p => `${p.cx},${p.cy}`).join(' ');
+
+  document.getElementById('modelChartWrap').innerHTML = `
+    <svg viewBox="0 0 540 240" xmlns="http://www.w3.org/2000/svg">
+      <line x1="40" y1="${zeroY}" x2="520" y2="${zeroY}" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <text x="42" y="${zeroY-5}" font-size="10" fill="#64748b" font-weight="700">0 KM</text>
+      <polyline fill="none" stroke="#035EA1" stroke-width="3.5" points="${poly}"/>
+      ${pts.map(p => `
+        <circle cx="${p.cx}" cy="${p.cy}" r="5.5" fill="${p.val>=0?'#2CB14D':'#E8262C'}" stroke="#fff" stroke-width="1.5"/>
+        <text x="${p.cx}" y="${p.cy-10}" text-anchor="middle" font-size="10.5" font-weight="800" fill="${p.val>=0?'#166534':'#E8262C'}">${Math.round(p.val/1000)}k</text>
+        <text x="${p.cx}" y="226" text-anchor="middle" font-size="10.5" font-weight="700" fill="#475569">${p.y}</text>
+      `).join('')}
+    </svg>`;
+
+  document.getElementById('modelTableWrap').innerHTML = `
+    <table><thead><tr><th>Godina</th><th>Prihod</th><th>Trošk. rada</th><th>EBITDA</th><th>Marža</th><th>Neto rez.</th><th>Uč./Dj.</th></tr></thead>
+    <tbody>${rows.map(x => `<tr>
+      <td><strong>${x.y}</strong></td>
+      <td>${x.r.toLocaleString('bs-BA')}</td>
+      <td>${x.w.toLocaleString('bs-BA')}</td>
+      <td style="font-weight:800;color:${x.e>=0?'#166534':'#E8262C'}">${x.e.toLocaleString('bs-BA')}</td>
+      <td>${(x.e/x.r*100).toFixed(1)}%</td>
+      <td style="color:${x.n>=0?'#166534':'#E8262C'}">${x.n.toLocaleString('bs-BA')}</td>
+      <td>${x.u}</td>
+    </tr>`).join('')}</tbody></table>`;
+}
+
+function filterRisksBy(filterStr){
+  const body = document.getElementById('riskTableBody');
+  const list = filterStr === 'ALL' ? RISKS : RISKS.filter(r => filterStr.split(',').includes(r.id));
+  body.innerHTML = list.map(r => `<tr>
+    <td><strong>${r.id}</strong></td>
+    <td><strong>${r.title}</strong></td>
+    <td>${r.action}</td>
+  </tr>`).join('');
+}
+
+(()=>{
+  const root=document.documentElement, prog=document.getElementById('progress');
+  const toc=[...document.querySelectorAll('.toc a')];
+  const secs=toc.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  function onScroll(){
+    const max=root.scrollHeight-innerHeight;
+    prog.style.width=(max>0?scrollY/max*100:0)+'%';
+    let act=secs[0];
+    for(const s of secs){ if(s.getBoundingClientRect().top<150) act=s; }
+    toc.forEach(a=>a.classList.toggle('active', act && a.getAttribute('href')==='#'+act.id));
+  }
+  addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  const panel=document.getElementById('searchPanel'), inp=document.getElementById('searchInput'), st=document.getElementById('searchStatus');
+  document.getElementById('searchBtn').onclick=()=>{ panel.classList.toggle('open'); if(panel.classList.contains('open')) inp.focus(); };
+  let marks=[];
+  function clearM(){ marks.forEach(m=>{ const p=m.parentNode; if(p){ p.replaceChild(document.createTextNode(m.textContent),m); p.normalize(); }}); marks=[]; }
+  inp.addEventListener('input', ()=>{
+    clearM(); const q=inp.value.trim();
+    if(q.length<2){ st.textContent='Unesite najmanje 2 znaka.'; return; }
+    const w=document.createTreeWalker(document.querySelector('.document'), NodeFilter.SHOW_TEXT, {
+      acceptNode:n=>n.parentElement && !['SCRIPT','STYLE','MARK','TH','TEXT'].includes(n.parentElement.tagName) && n.nodeValue.toLowerCase().includes(q.toLowerCase()) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT
+    });
+    let nodes=[], n; while(n=w.nextNode()) nodes.push(n);
+    nodes.forEach(node=>{
+      const t=node.nodeValue, i=t.toLowerCase().indexOf(q.toLowerCase()); if(i<0)return;
+      const frag=document.createDocumentFragment();
+      frag.append(document.createTextNode(t.slice(0,i)));
+      const mk=document.createElement('mark'); mk.textContent=t.slice(i,i+q.length);
+      frag.append(mk, document.createTextNode(t.slice(i+q.length)));
+      node.parentNode.replaceChild(frag, node); marks.push(mk);
+    });
+    st.textContent=`Pronađeno podudaranja: ${marks.length}`;
+    if(marks[0]) marks[0].scrollIntoView({behavior:'smooth', block:'center'});
+  });
+
+  document.getElementById('themeBtn').onclick=()=>{
+    root.classList.toggle('dark');
+    document.querySelector('meta[name="color-scheme"]').content=root.classList.contains('dark')?'dark':'light';
+  };
+})();
+
+showHistTab('hist2225');
+calcBalanceSim();
+applyPreset('bazni');
+filterRisksBy('ALL');
+selectMindNode('center');
+</script>
+</body>
+</html>
